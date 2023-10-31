@@ -2,6 +2,7 @@ import { PaymentProvider } from "@prisma/client";
 import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/ProductCard";
 import RecentPucharses from "@/components/RecentPucharses";
+import { prisma } from "@/lib/prisma";
 
 const Products = [
   {
@@ -21,7 +22,15 @@ const Products = [
   },
 ];
 
-export default function CategoryPage() {
+export default async function CategoryPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const Products = await prisma.product.findMany({
+    where: { serverId: Number.parseInt(params.slug as string) },
+  });
+
   return (
     <main className="container mx-auto flex flex-col gap-6 mt-10 px-3 max-sm:px-5">
       <Navbar />
@@ -30,8 +39,9 @@ export default function CategoryPage() {
           {Products.map((product) => (
             <ProductCard
               name={product.name}
-              price={product.price}
-              img={product.img}
+              price={5.0}
+              img={product.imageUri || ""}
+              key={product.id}
             />
           ))}
         </section>
