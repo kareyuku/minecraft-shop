@@ -5,7 +5,7 @@ import RecentPucharses from "@/components/RecentPucharses";
 
 const Products = [
   {
-    name: "Rzadki Klucz",
+    name: "Skrzynia Skarbów",
     price: 5.0,
     img: "https://media.sketchfab.com/models/020c3726d3c648f88c70a555fdb85764/thumbnails/d526a9af9a6b4bfe8471faf0907f9448/ace427efa47b4903a1762a98b47352b7.jpeg",
   },
