@@ -13,29 +13,50 @@ datasource db {
 // Enums
 
 enum Currency {
-    PLN
-    USD
-    EUR
+  PLN
+  USD
+  EUR
 }
 
 enum PaymentProvider {
-    STRIPE
-    PRZELEWY24
-    PAYPAL
-    BLIK
-    HOTPAY_TRANFER
-    HOTPAY_PAYSAFECARD
-    HOTPAY_SMS
-    PAYBYLINK_TRANFER
-    PAYBYLINK_PAYSAFECARD
-    PAYBYLINK_SMS
+  STRIPE
+  PRZELEWY24
+  PAYPAL
+  BLIK
+  HOTPAY_TRANFER
+  HOTPAY_PAYSAFECARD
+  HOTPAY_SMS
+  PAYBYLINK_TRANFER
+  PAYBYLINK_PAYSAFECARD
+  PAYBYLINK_SMS
 }
 
 // Models
 
 model PaymentMethod {
-    id        Int             @id @default(autoincrement())
-    price     Decimal
-    provider  PaymentProvider 
-    currency  Currency?       @default(PLN)
+  id        Int             @id @default(autoincrement())
+  price     Decimal
+  provider  PaymentProvider
+  currency  Currency       @default(PLN)
+  Product   Product         @relation(fields: [productId], references: [id])
+  productId Int
+}
+
+model Product {
+  id             Int             @id @default(autoincrement())
+  name           String
+  description    String?
+  imageUri       String?
+  requireOnline  Boolean         @default(false)
+  server         Server          @relation(fields: [serverId], references: [id])
+  serverId       Int
+  paymentMethods PaymentMethod[]
+}
+
+model Server {
+  id       Int       @id @default(autoincrement())
+  name     String
+  ip       String
+  imageUri String?
+  Product  Product[]
 }
