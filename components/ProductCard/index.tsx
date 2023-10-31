@@ -5,9 +5,23 @@ type ProductProps = {
   name: string;
   price: number;
   img?: string;
+  maximumBuy: number;
+  minimumBuy: number;
+  description?: string;
+  requireOnline: boolean;
+  serverId: number;
 };
 
-export default function ProductCard({ name, img, price }: ProductProps) {
+export default function ProductCard({
+  name,
+  img,
+  price,
+  maximumBuy,
+  minimumBuy,
+  requireOnline,
+  serverId,
+  description,
+}: ProductProps) {
   let Currency = new Intl.NumberFormat("pl-PL", {
     style: "currency",
     currency: "PLN",
@@ -23,7 +37,15 @@ export default function ProductCard({ name, img, price }: ProductProps) {
         <label className="text-green-400 font-bold">
           {Currency.format(price)}
         </label>
-        <PurchaseModal name={name} img={img} />
+        <PurchaseModal
+          name={name}
+          img={img}
+          maximumBuy={maximumBuy}
+          minimumBuy={minimumBuy}
+          description={description}
+          requireOnline={requireOnline}
+          serverId={serverId}
+        />
       </div>
     </div>
   );

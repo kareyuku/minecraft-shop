@@ -6,11 +6,24 @@ import { useRef, useState } from "react";
 type ProductProps = {
   name: string;
   img?: string;
+  maximumBuy: number;
+  minimumBuy: number;
+  requireOnline: boolean;
+  serverId: number;
+  description?: string;
 };
 
 const regexUsername = /^\w{3,16}$/i;
 
-export default function PurchaseModal({ name, img }: ProductProps) {
+export default function PurchaseModal({
+  name,
+  img,
+  maximumBuy,
+  minimumBuy,
+  requireOnline,
+  serverId,
+  description,
+}: ProductProps) {
   const ModalRef = useRef<HTMLDialogElement>(null);
   const UsernameRef = useRef<HTMLInputElement>(null);
   const PaymentRef = useRef<HTMLSelectElement>(null);
@@ -59,25 +72,31 @@ export default function PurchaseModal({ name, img }: ProductProps) {
               <h1>hejcia</h1>
             </div>
           </div>
-          <div className="text-center text-sm bg-primary py-4 px-6 rounded-md mb-3">
-            <label>
-              You have to be connected to this server while purchasing item.
-            </label>
-          </div>
-          <div className="form-control w-full mb-5">
-            <label className="label">
-              <span className="label-text">Quanity {`${Quanity}/200`}</span>
-            </label>
-            <input
-              min={1}
-              max={200}
-              step="1"
-              type="range"
-              className="range w-full"
-              value={Quanity}
-              onChange={(e) => setQuanity(Number.parseInt(e.target.value))}
-            />
-          </div>
+          {requireOnline && (
+            <div className="text-center text-sm bg-primary py-4 px-6 rounded-md mb-3">
+              <label>
+                You have to be connected to this server while purchasing item.
+              </label>
+            </div>
+          )}
+          {minimumBuy >= 1 && (
+            <div className="form-control w-full mb-5">
+              <label className="label">
+                <span className="label-text">
+                  Quanity {`${Quanity}/${maximumBuy}`}
+                </span>
+              </label>
+              <input
+                min={minimumBuy}
+                max={maximumBuy}
+                step="1"
+                type="range"
+                className="range w-full"
+                value={Quanity}
+                onChange={(e) => setQuanity(Number.parseInt(e.target.value))}
+              />
+            </div>
+          )}
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text">Username</span>

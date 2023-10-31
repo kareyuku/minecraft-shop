@@ -41,6 +41,11 @@ export default async function CategoryPage({
               name={product.name}
               price={5.0}
               img={product.imageUri || ""}
+              requireOnline={product.requireOnline}
+              serverId={product.serverId}
+              description={product.description || ""}
+              maximumBuy={product.maximumBuy || 0}
+              minimumBuy={product.minimumBuy || 0}
               key={product.id}
             />
           ))}
