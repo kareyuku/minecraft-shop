@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+
+enum Currency {
+    PLN
+    USD
+    EUR
+}
+
+enum PaymentProvider {
+    STRIPE
+    PRZELEWY24
+    PAYPAL
+    BLIK
+    HOTPAY_TRANFER
+    HOTPAY_PAYSAFECARD
+    HOTPAY_SMS
+    PAYBYLINK_TRANFER
+    PAYBYLINK_PAYSAFECARD
+    PAYBYLINK_SMS
+}
+
+// Models
+
+model PaymentMethod {
+    id        Int             @id @default(autoincrement())
+    price     Decimal
+    provider  PaymentProvider 
+    currency  Currency?       @default(PLN)
+}
