@@ -1,4 +1,4 @@
-import CategoryCard from "@/components/CategoryCard";
+import { PaymentProvider } from "@prisma/client";
 import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/ProductCard";
 import RecentPucharses from "@/components/RecentPucharses";

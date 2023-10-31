@@ -1,5 +1,6 @@
 "use client";
 
+import { PaymentProvider } from "@prisma/client";
 import { useRef, useState } from "react";
 
 type ProductProps = {
@@ -99,7 +100,7 @@ export default function PurchaseModal({ name, img }: ProductProps) {
               <option disabled selected>
                 Pick one
               </option>
-              <option value="stripe">Stripe</option>
+              <option value={PaymentProvider.STRIPE}>Stripe</option>
               <option value="przelewy24">Przelewy24</option>
               <option value="paypal">Paypal</option>
             </select>
