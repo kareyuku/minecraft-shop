@@ -37,7 +37,7 @@ model PaymentMethod {
   id        Int             @id @default(autoincrement())
   price     Decimal
   provider  PaymentProvider
-  currency  Currency       @default(PLN)
+  currency  Currency        @default(PLN)
   Product   Product         @relation(fields: [productId], references: [id])
   productId Int
 }
@@ -48,6 +48,8 @@ model Product {
   description    String?
   imageUri       String?
   requireOnline  Boolean         @default(false)
+  minimumBuy     Int             @default(1)
+  maximumBuy     Int?
   server         Server          @relation(fields: [serverId], references: [id])
   serverId       Int
   paymentMethods PaymentMethod[]
