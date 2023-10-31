@@ -1,6 +1,20 @@
 import CategoryCard from "@/components/CategoryCard";
 import Navbar from "@/components/Navbar";
+import ProductCard from "@/components/ProductCard";
 import RecentPucharses from "@/components/RecentPucharses";
+
+const Products = [
+  {
+    name: "Rzadki Klucz",
+    price: 5.0,
+    img: "https://media.sketchfab.com/models/020c3726d3c648f88c70a555fdb85764/thumbnails/d526a9af9a6b4bfe8471faf0907f9448/ace427efa47b4903a1762a98b47352b7.jpeg",
+  },
+  {
+    name: "Rzadki Klucz",
+    price: 5.0,
+    img: "https://cdn.discordapp.com/attachments/974758519268065351/990972480632025178/unknown.png",
+  },
+];
 
 export default function CategoryPage() {
   return (
@@ -8,7 +22,13 @@ export default function CategoryPage() {
       <Navbar />
       <section className="flex max-sm:flex-col gap-10">
         <section className="flex-[0.7] grid max-sm:grid-cols-1 max-md:grid-cols-2 max-lg:grid-cols-3 grid-cols-4 gap-4">
-          <h1>items</h1>
+          {Products.map((product) => (
+            <ProductCard
+              name={product.name}
+              price={product.price}
+              img={product.img}
+            />
+          ))}
         </section>
         <section className="flex-[0.3]">
           <RecentPucharses />
