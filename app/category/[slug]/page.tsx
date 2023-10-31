@@ -14,6 +14,11 @@ const Products = [
     price: 5.0,
     img: "https://cdn.discordapp.com/attachments/974758519268065351/990972480632025178/unknown.png",
   },
+  {
+    name: "Porsche",
+    price: 9123021903.0,
+    img: "https://tor-lodz.pl/frontend/images/supercars/porsche-911-tor-lodz-3_152bee2ebcb640b15ed56bd0097818e4d8a691ce.jpg",
+  },
 ];
 
 export default function CategoryPage() {

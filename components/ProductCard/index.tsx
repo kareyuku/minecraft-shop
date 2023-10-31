@@ -14,9 +14,7 @@ export default function ProductCard({ name, img, price }: ProductProps) {
   return (
     <div className="card bg-secondary p-4 rounded-md hover:bg-third transition-colors text-center flex flex-col justify-between">
       <img
-        className="rounded-md h-[150px] max-h-[150px]"
-        width={"100%"}
-        height={50}
+        className="rounded-md max-h-[200px] aspect-auto mx-auto my-auto"
         src={img}
       />
       <div className="flex flex-col gap-3 mt-3">
