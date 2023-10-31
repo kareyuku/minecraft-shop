@@ -1,5 +1,5 @@
 import Link from "next/link";
-import PucharseModal from "../PucharseModal";
+import PurchaseModal from "../PurchaseModal";
 
 type ProductProps = {
   name: string;
@@ -23,7 +23,7 @@ export default function ProductCard({ name, img, price }: ProductProps) {
         <label className="text-green-400 font-bold">
           {Currency.format(price)}
         </label>
-        <PucharseModal name={name} img={img} />
+        <PurchaseModal name={name} img={img} />
       </div>
     </div>
   );
