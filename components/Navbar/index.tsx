@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { BsGiftFill, BsWalletFill } from "react-icons/bs";
 import { FaShoppingCart } from "react-icons/fa";
 import { Url } from "url";
+import VoucherModal from "../VoucherModal";
 
 type NavbarItem = {
   Icon?: ReactNode;
@@ -33,7 +34,7 @@ export default function Navbar() {
         />
       </section>
       <section className="navbar_category flex gap-2">
-        <NavbarItem text={"Voucher"} Icon={<BsGiftFill />} href={""} />
+        <VoucherModal />
       </section>
     </nav>
   );
