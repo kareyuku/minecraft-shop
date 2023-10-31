@@ -48,8 +48,8 @@ model Product {
   description    String?
   imageUri       String?
   requireOnline  Boolean         @default(false)
-  minimumBuy     Int             @default(1)
-  maximumBuy     Int?
+  minimumBuy     Int?
+  maximumBuy     Int?            
   server         Server          @relation(fields: [serverId], references: [id])
   serverId       Int
   paymentMethods PaymentMethod[]
