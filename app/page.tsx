@@ -20,10 +20,6 @@ export default function LandingPage() {
             name={"Survival"}
             img={"https://i.imgur.com/zjAx5dG.png"}
           />
-          <CategoryCard
-            name={"Survival"}
-            img={"https://i.imgur.com/zjAx5dG.png"}
-          />
         </section>
         <section className="flex-[0.3]">
           <RecentPucharses />
