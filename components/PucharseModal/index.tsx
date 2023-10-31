@@ -19,9 +19,9 @@ export default function PucharseModal({ name, img }: ProductProps) {
       <button className="btn" onClick={ShowModal}>
         Buy
       </button>
-      <dialog id="my_modal_1" className="modal" ref={ModalRef}>
-        <div className="modal-box flex flex-col items-start">
-          <h3 className="font-bold text-lg">Pucharse Skrzynia Skarbów</h3>
+      <dialog className="modal" ref={ModalRef}>
+        <div className="modal-box flex flex-col items-start bg-secondary max-h-none">
+          <h3 className="font-bold text-lg">Pucharse {name}</h3>
           <div className="flex my-10 ">
             <div className="flex-[0.3]">
               <img
@@ -32,6 +32,11 @@ export default function PucharseModal({ name, img }: ProductProps) {
             <div className="flex-[0.7] max-h-[100px]">
               <h1>hejcia</h1>
             </div>
+          </div>
+          <div className="text-center text-sm bg-primary py-4 px-6 rounded-md mb-3">
+            <label>
+              You have to be connected to this server while purchasing item.
+            </label>
           </div>
           <div className="form-control w-full mb-5">
             <label className="label">
@@ -54,12 +59,27 @@ export default function PucharseModal({ name, img }: ProductProps) {
             <input
               type="text"
               placeholder="Type here"
-              className="input input-bordered w-full"
+              className="input bg-primary w-full"
             />
+          </div>
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text">Choose a payment method</span>
+            </label>
+            <select className="select bg-primary">
+              <option disabled selected>
+                Pick one
+              </option>
+              <option>Stripe</option>
+              <option>Przelewy24</option>
+              <option>Paypal</option>
+            </select>
           </div>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn btn-success">Confirm</button>
+              <button className="btn bg-third text-green-300 mr-3">
+                Confirm
+              </button>
               <button className="btn">Close</button>
             </form>
           </div>
