@@ -35,7 +35,7 @@ enum PaymentProvider {
 
 model PaymentMethod {
   id        Int             @id @default(autoincrement())
-  price     Decimal
+  price     Float
   provider  PaymentProvider
   currency  Currency        @default(PLN)
   Product   Product         @relation(fields: [productId], references: [id])
