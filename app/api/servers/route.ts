@@ -1,12 +1,17 @@
 import { prisma } from "@/lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   const { name, ip, imageUri } = await req.json();
-  console.log(name, ip, imageUri);
+  
+  if (!name)
+    return Response.json({message: "Field name can't be empty"}, {status: 400});
+  if (!ip)
+    return Response.json({message: "Field ip can't be empty"}, {status: 400});
+  if (await prisma.server.findFirst({where: {ip}}))
+    return Response.json({message: "There is already a server with this ip"}, {status: 400});
 
   try {
-    return NextResponse.json(
+    return Response.json(
       await prisma.server.create({
         data: {
           name,
@@ -16,10 +21,25 @@ export async function POST(req: NextRequest) {
       })
     );
   } catch (err: any) {
-    return NextResponse.json({ message: err.message });
+    return Response.json({ message: err.message }, {status: 500});
   }
 }
 
+export async function DELETE(req: Request) {
+  const { id } = await req.json();
+
+  if (!id)
+    return Response.json({message: "Field id can't be empty"}, {status: 400});
+
+  try {
+    return Response.json(await prisma.server.delete({where: {id}}));
+  }
+  catch (err: any) {
+    return Response.json({ message: err.message }, {status: 500});
+  }
+
+}
+
 export async function GET() {
-  return NextResponse.json(await prisma.server.findMany());
+  return Response.json(await prisma.server.findMany());
 }

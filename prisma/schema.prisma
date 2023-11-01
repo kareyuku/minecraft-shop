@@ -58,7 +58,7 @@ model Product {
 model Server {
   id       Int       @id @default(autoincrement())
   name     String
-  ip       String
+  ip       String    @unique
   imageUri String?
-  Product  Product[]
+  products  Product[]
 }
