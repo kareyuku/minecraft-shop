@@ -2,6 +2,7 @@
 
 import { PaymentMethod, Prisma } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
+import PaymentOption from "../PaymentOption";
 
 const regexUsername = /^\w{3,16}$/i;
 
@@ -69,7 +70,7 @@ export default function PurchaseModal({
         Buy
       </button>
       <dialog className="modal" ref={ModalRef}>
-        <div className="modal-box flex flex-col items-start bg-secondary max-h-none">
+        <div className="modal-box flex flex-col items-start bg-secondary ">
           <h3 className="font-bold text-lg">Purchase {product.name}</h3>
           <div className="flex my-10 ">
             <div className="flex-[0.3]">
@@ -153,6 +154,15 @@ export default function PurchaseModal({
                 </option>
               ))}
             </select>
+            {/* <div className="payment_options flex flex-wrap gap-2 mt-4">
+              {product.paymentMethods.map((paymentMethod) => (
+                <PaymentOption
+                  paymentMethod={paymentMethod}
+                  price={Price}
+                  quanity={Quanity}
+                />
+              ))}
+            </div> */}
           </div>
           <div className="modal-action">
             <button

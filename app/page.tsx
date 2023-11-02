@@ -1,6 +1,6 @@
 import CategoryCard from "@/components/CategoryCard";
 import Navbar from "@/components/Navbar";
-import RecentPucharses from "@/components/RecentPucharses";
+import RecentPurchases from "@/components/RecentPurchases";
 import { prisma } from "@/lib/prisma";
 
 export default async function LandingPage() {
@@ -21,7 +21,7 @@ export default async function LandingPage() {
           ))}
         </section>
         <section className="flex-[0.3]">
-          <RecentPucharses />
+          <RecentPurchases />
         </section>
       </section>
     </main>
