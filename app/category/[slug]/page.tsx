@@ -29,7 +29,7 @@ export default async function CategoryPage({
 }) {
   const Products = await prisma.product.findMany({
     where: { serverId: Number.parseInt(params.slug as string) },
-    include: { paymentMethods: true }
+    include: { paymentMethods: true },
   });
 
   return (
@@ -40,7 +40,7 @@ export default async function CategoryPage({
           {Products.map((product) => (
             <ProductCard
               name={product.name}
-              price={Math.min(...product.paymentMethods.map(method => method.price))}
+              price={product.price}
               img={product.imageUri || ""}
               requireOnline={product.requireOnline}
               serverId={product.serverId}

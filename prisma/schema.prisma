@@ -35,7 +35,7 @@ enum PaymentProvider {
 
 model PaymentMethod {
   id        Int             @id @default(autoincrement())
-  price     Float
+  fee       Float           @default(0)
   provider  PaymentProvider
   currency  Currency        @default(PLN)
   Product   Product         @relation(fields: [productId], references: [id])
@@ -44,6 +44,7 @@ model PaymentMethod {
 
 model Product {
   id             Int             @id @default(autoincrement())
+  price          Float           @default(1)  
   name           String
   description    String?
   imageUri       String?
