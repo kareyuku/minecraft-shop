@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/ProductCard";
-import RecentPucharses from "@/components/RecentPucharses";
+import RecentPurchases from "@/components/RecentPurchases";
 import { prisma } from "@/lib/prisma";
 
 export default async function CategoryPage({
@@ -23,7 +23,7 @@ export default async function CategoryPage({
           ))}
         </section>
         <section className="flex-[0.3]">
-          <RecentPucharses />
+          <RecentPurchases />
         </section>
       </section>
     </main>
