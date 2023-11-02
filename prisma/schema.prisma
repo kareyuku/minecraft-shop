@@ -54,6 +54,7 @@ model Product {
   server         Server          @relation(fields: [serverId], references: [id])
   serverId       Int
   paymentMethods PaymentMethod[]
+  vouchers       Voucher[]
 }
 
 model Server {
@@ -62,4 +63,10 @@ model Server {
   ip       String    @unique
   imageUri String?
   products  Product[]
+}
+
+model Voucher {
+  id         String @id @default(uuid())
+  product    Product @relation(fields: [productId], references: [id] )
+  productId  Int
 }
