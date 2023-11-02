@@ -7,8 +7,6 @@ export async function POST(req: Request) {
     return Response.json({message: "Field name can't be empty"}, {status: 400});
   if (!ip)
     return Response.json({message: "Field ip can't be empty"}, {status: 400});
-  if (await prisma.server.findFirst({where: {ip}}))
-    return Response.json({message: "There is already a server with this ip"}, {status: 400});
 
   try {
     return Response.json(
@@ -21,23 +19,11 @@ export async function POST(req: Request) {
       })
     );
   } catch (err: any) {
+    if (err.code === 'P2002')
+      return Response.json({ message: "There is already a server with this ip" }, {status: 400});
+
     return Response.json({ message: err.message }, {status: 500});
   }
-}
-
-export async function DELETE(req: Request) {
-  const { id } = await req.json();
-
-  if (!id)
-    return Response.json({message: "Field id can't be empty"}, {status: 400});
-
-  try {
-    return Response.json(await prisma.server.delete({where: {id}}));
-  }
-  catch (err: any) {
-    return Response.json({ message: err.message }, {status: 500});
-  }
-
 }
 
 export async function GET() {
