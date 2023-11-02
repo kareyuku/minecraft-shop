@@ -1,27 +1,15 @@
-import Link from "next/link";
 import PurchaseModal from "../PurchaseModal";
+import { Prisma } from "@prisma/client";
 
-type ProductProps = {
-  name: string;
-  price: number;
-  img?: string;
-  maximumBuy: number;
-  minimumBuy: number;
-  description?: string;
-  requireOnline: boolean;
-  serverId: number;
-};
+type ProductWithPayments = Prisma.ProductGetPayload<{
+  include: { paymentMethods: true };
+}>;
 
 export default function ProductCard({
-  name,
-  img,
-  price,
-  maximumBuy,
-  minimumBuy,
-  requireOnline,
-  serverId,
-  description,
-}: ProductProps) {
+  product,
+}: {
+  product: ProductWithPayments;
+}) {
   let Currency = new Intl.NumberFormat("pl-PL", {
     style: "currency",
     currency: "PLN",
@@ -30,22 +18,14 @@ export default function ProductCard({
     <div className="card bg-secondary p-4 rounded-md hover:bg-third transition-colors text-center flex flex-col justify-between">
       <img
         className="rounded-md max-h-[200px] aspect-auto mx-auto my-auto"
-        src={img}
+        src={product.imageUri || ""}
       />
       <div className="flex flex-col gap-3 mt-3">
-        <label>{name}</label>
+        <label>{product.name}</label>
         <label className="text-green-400 font-bold">
-          {Currency.format(price)}
+          {Currency.format(product.price)}
         </label>
-        <PurchaseModal
-          name={name}
-          img={img}
-          maximumBuy={maximumBuy}
-          minimumBuy={minimumBuy}
-          description={description}
-          requireOnline={requireOnline}
-          serverId={serverId}
-        />
+        <PurchaseModal product={product} />
       </div>
     </div>
   );
