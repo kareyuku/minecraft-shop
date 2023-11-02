@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ReactNode } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 type SidebarItemProps = {
@@ -6,7 +7,11 @@ type SidebarItemProps = {
   href: string;
 };
 
-export default function Sidebar() {
+type Props = {
+  children: ReactNode;
+};
+
+export default function Sidebar({ children }: Props) {
   const SidebarItem = ({ label, href }: SidebarItemProps) => {
     return (
       <li>
@@ -19,10 +24,10 @@ export default function Sidebar() {
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
-        {/* Page content here */}
-        <label htmlFor="my-drawer-2" className=" lg:hidden p-5">
+        <label htmlFor="my-drawer-2" className=" p-5">
           <GiHamburgerMenu />
         </label>
+        {children}
       </div>
       <div className="drawer-side">
         <label
