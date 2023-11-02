@@ -20,9 +20,8 @@ export async function POST(req: Request, { params }: ISlug) {
   const id = Number.parseInt(params.slug);
 
   try {
-    const server = await prisma.server.findUniqueOrThrow({
+    await prisma.server.findUniqueOrThrow({
       where: { id },
-      include: { products: true },
     });
     const product = await prisma.product.create({
       data: {
