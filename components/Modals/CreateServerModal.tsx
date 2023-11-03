@@ -44,6 +44,7 @@ export default function CreateServerModal({
         label="Creating server"
         validation={validation}
         request={request}
+        style={"bright"}
       >
         <Input
           name="Server Name"

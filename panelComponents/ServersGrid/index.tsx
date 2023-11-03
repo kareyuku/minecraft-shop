@@ -1,9 +1,9 @@
 "use client";
 
-import CreateServerModal from "@/modals/CreateServerModal";
-import ServerCard from "./ServerCard.tsx";
+import ServerCard from "./ServerCard";
 import { useEffect, useState } from "react";
 import { Server } from "@prisma/client";
+import CreateServerModal from "@/components/Modals/CreateServerModal";
 
 export default function ServersGrid() {
   const [servers, setServers] = useState<Server[]>([]);
@@ -15,27 +15,34 @@ export default function ServersGrid() {
     setLoading(false);
   };
 
+  const addServer = (server: Server) => setServers([...servers, server]);
+
+  const removeServer = (serverId: number) =>
+    setServers(servers.filter((server: Server) => server.id !== serverId));
+
+  const editServer = async (server: Server) => {
+    const oldServers = [...servers];
+    const index = oldServers.findIndex((serv) => serv.id == server.id);
+    oldServers[index] = server;
+    setServers([...oldServers]);
+  };
+
   useEffect(() => {
     loadServers();
   }, []);
 
   if (loading) return "Loading";
 
-  const addServer = (server: Server) => setServers([...servers, server]);
-
-  const removeServer = (serverId: number) => {
-    setServers(servers.filter((server: Server) => server.id !== serverId));
-  };
-
   return (
     <>
       <CreateServerModal addServer={addServer} />
-      <section className="flex-[0.7] grid max-sm:grid-cols-1 grid-cols-2 gap-4 mt-5">
+      <section className="grid max-sm:grid-cols-1 grid-cols-2 gap-4 mt-5">
         {servers.map((server) => (
           <ServerCard
             server={server}
             key={server.id}
             removeServer={removeServer}
+            editServer={editServer}
           />
         ))}
       </section>

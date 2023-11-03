@@ -1,4 +1,4 @@
-import CreateProductModal from "@/components/CreateProductModal";
+import CreateProductModal from "@/components/Modals/CreateProductModal";
 import Sidebar from "@/components/Sidebar";
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";

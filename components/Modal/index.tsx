@@ -8,6 +8,7 @@ type ModalProps = {
   validation: Function;
   children: React.ReactNode;
   request: Function;
+  style?: "dark" | "bright";
 };
 
 export default function Modal({
@@ -16,11 +17,12 @@ export default function Modal({
   children,
   validation,
   request,
+  style,
 }: ModalProps) {
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const SubmitModal = async () => {
-    const validate = validation();
+    const validate = await validation();
     if (!validate) return;
     setLoading(true);
     const response = await request();
@@ -34,7 +36,14 @@ export default function Modal({
 
   return (
     <>
-      <button onClick={() => modalRef.current?.showModal()} className="btn">
+      <button
+        onClick={() => modalRef.current?.showModal()}
+        className={
+          style == "bright"
+            ? "btn bg-secondary hover:bg-third text-white"
+            : "btn text-white"
+        }
+      >
         <span>{btn}</span>
       </button>
       <dialog className="modal" ref={modalRef}>

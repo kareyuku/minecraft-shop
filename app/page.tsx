@@ -1,6 +1,6 @@
-import CategoryCard from "@/components/CategoryCard";
 import Navbar from "@/components/Navbar";
-import RecentPurchases from "@/components/RecentPurchases";
+import CategoryCard from "@/components/Shop/CategoryCard";
+import RecentPurchases from "@/components/Shop/Modules/RecentPurchases";
 import { prisma } from "@/lib/prisma";
 
 export default async function LandingPage() {
