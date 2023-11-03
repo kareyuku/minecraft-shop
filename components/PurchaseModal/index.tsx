@@ -3,6 +3,7 @@
 import { PaymentMethod, Prisma } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
 import PaymentOption from "../PaymentOption";
+import Input from "../Input";
 
 const regexUsername = /^\w{3,16}$/i;
 
@@ -115,20 +116,12 @@ export default function PurchaseModal({
                 />
               </div>
             )}
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Username</span>
-              <span className="label-text-alt text-red-500 font-bold">
-                {UsernameErr}
-              </span>
-            </label>
-            <input
-              type="text"
-              placeholder="Type here"
-              className="input bg-primary w-full"
-              ref={UsernameRef}
-            />
-          </div>
+          <Input
+            name="Username"
+            err={UsernameErr}
+            ref={UsernameRef}
+            maxLength={16}
+          />
           <div className="form-control w-full mb-5">
             <label className="label">
               <span className="label-text">Choose a payment method</span>

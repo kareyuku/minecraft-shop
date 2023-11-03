@@ -1,3 +1,4 @@
+import CreateProductModal from "@/components/CreateProductModal";
 import Sidebar from "@/components/Sidebar";
 import { prisma } from "@/lib/prisma";
 import { Prisma, Server } from "@prisma/client";
@@ -17,7 +18,7 @@ export default async function AdminProducts() {
         <input type="radio" name="my-accordion-2" />
         <div className="collapse-title text-xl font-medium">{server.name}</div>
         <div className="collapse-content overflow-x-auto">
-          <button className="btn">Add Product</button>
+          <CreateProductModal serverId={server.id} />
           <div className="overflow-x-auto">
             <table className="table">
               <thead>

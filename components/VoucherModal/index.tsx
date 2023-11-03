@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { BsGiftFill } from "react-icons/bs";
+import Input from "../Input";
 
 export default function VoucherModal() {
   const ModalRef = useRef<HTMLDialogElement>(null);
@@ -38,27 +39,12 @@ export default function VoucherModal() {
               You have to be connected to this server while purchasing item.
             </label>
           </div>
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Username</span>
-              {UsernameErr && (
-                <span className="label-text-alt text-red-500 font-bold">
-                  {UsernameErr}
-                </span>
-              )}
-            </label>
-            <input
-              type="text"
-              placeholder="Type here"
-              className={
-                UsernameErr
-                  ? "input bg-primary w-full input-error"
-                  : "input bg-primary w-full "
-              }
-              ref={UsernameRef}
-              maxLength={16}
-            />
-          </div>
+          <Input
+            name={"Username"}
+            err={UsernameErr}
+            ref={UsernameRef}
+            maxLength={16}
+          />
           <div className="form-control w-full mb-5">
             <label className="label">
               <span className="label-text">Code</span>
