@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 
 interface ISlug {
   params: {
-    slug: string;
+    serverId: string;
   };
 }
 
@@ -17,7 +17,7 @@ export async function POST(req: Request, { params }: ISlug) {
     minimumBuy,
     maximumBuy,
   } = await req.json();
-  const id = Number.parseInt(params.slug);
+  const id = Number.parseInt(params.serverId);
 
   try {
     await prisma.server.findUniqueOrThrow({
@@ -50,7 +50,7 @@ export async function GET(req: Request, { params }: ISlug) {
   try {
     return Response.json(
       await prisma.product.findMany({
-        where: { serverId: Number.parseInt(params.slug) },
+        where: { serverId: Number.parseInt(params.serverId) },
       })
     );
   } catch (err: any) {
