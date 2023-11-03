@@ -32,7 +32,14 @@ export default function CreateProductModal({ serverId }: { serverId: number }) {
         <div className="modal-box flex flex-col items-start bg-secondary max-h-none">
           <h3 className="font-bold text-lg">New Product</h3>
           <Input name="Name" err={UsernameErr} ref={UsernameRef} />
-          <Input name="Price" err={UsernameErr} />
+          <Input
+            name="Price"
+            err={UsernameErr}
+            type="number"
+            min={1}
+            value={1}
+          />
+          <Input name="Image" err={UsernameErr} />
           <div className="modal-action">
             <button
               onClick={ReedemVoucher}

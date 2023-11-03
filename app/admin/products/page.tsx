@@ -1,9 +1,7 @@
 import CreateProductModal from "@/components/CreateProductModal";
 import Sidebar from "@/components/Sidebar";
 import { prisma } from "@/lib/prisma";
-import { Prisma, Server } from "@prisma/client";
-
-import { BsCheckCircleFill } from "react-icons/bs";
+import { Prisma } from "@prisma/client";
 
 type ServerWithProducts = Prisma.ServerGetPayload<{
   include: { products: true };
@@ -14,7 +12,7 @@ export default async function AdminProducts() {
 
   function ServerContent({ server }: { server: ServerWithProducts }) {
     return (
-      <div className="collapse collapse-arrow bg-secondary">
+      <div className="collapse collapse-arrow bg-secondary mb-6">
         <input type="radio" name="my-accordion-2" />
         <div className="collapse-title text-xl font-medium">{server.name}</div>
         <div className="collapse-content overflow-x-auto">
@@ -23,15 +21,17 @@ export default async function AdminProducts() {
             <table className="table">
               <thead>
                 <tr>
-                  <th>id</th>
-                  <th>name</th>
-                  <th>price</th>
-                  <th>description</th>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Description</th>
                   <th>requireOnline</th>
                   <th>minimumBuy</th>
                   <th>maximumBuy</th>
                   <th>serverId</th>
                   <th>imageUri</th>
+                  <th>Actions</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -50,6 +50,12 @@ export default async function AdminProducts() {
                         className="max-h-10 max-w-10"
                         src={product.imageUri || ""}
                       />
+                    </th>
+                    <th>
+                      <button className="btn">d</button>
+                    </th>
+                    <th>
+                      <button className="btn">m</button>
                     </th>
                   </tr>
                 ))}
