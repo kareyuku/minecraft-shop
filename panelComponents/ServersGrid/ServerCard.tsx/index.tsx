@@ -5,7 +5,13 @@ import { AiFillDelete, AiFillInfoCircle } from "react-icons/ai";
 import { Server } from "@prisma/client";
 import Modal from "@/components/Modal";
 
-export default function ServerCard({ server }: { server: Server }) {
+export default function ServerCard({
+  server,
+  removeServer,
+}: {
+  server: Server;
+  removeServer: Function;
+}) {
   return (
     <div className="card bg-secondary p-4">
       <div className="flex gap-3">
@@ -36,9 +42,13 @@ export default function ServerCard({ server }: { server: Server }) {
         <Modal
           btn={<AiFillDelete />}
           label="Are you sure you want to delete a server?"
-          request={async () =>
-            await fetch(`/api/servers/${server.id}`, { method: "DELETE" })
-          }
+          request={async () => {
+            const response = await fetch(`/api/servers/${server.id}`, {
+              method: "DELETE",
+            });
+            if (response.status === 200) removeServer(server.id);
+            return response;
+          }}
           validation={() => true}
         >
           <label>

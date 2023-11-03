@@ -4,7 +4,11 @@ import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import { useRef, useState } from "react";
 
-export default function CreateServerModal() {
+export default function CreateServerModal({
+  addServer,
+}: {
+  addServer: Function;
+}) {
   const serverName = useRef<HTMLInputElement>(null);
   const serverIP = useRef<HTMLInputElement>(null);
 
@@ -23,10 +27,14 @@ export default function CreateServerModal() {
       name: serverName.current?.value || "s",
     };
 
-    return await fetch("/api/servers", {
+    const response = await fetch("/api/servers", {
       method: "POST",
       body: JSON.stringify(data),
     });
+
+    addServer(await response.json());
+
+    return response;
   };
 
   return (
