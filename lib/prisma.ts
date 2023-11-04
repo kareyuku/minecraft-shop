@@ -25,9 +25,17 @@ export function prismaExclude<T extends Entity, K extends Keys<T>>(
   return result;
 }
 
-const prisma = new PrismaClient();
+const prismaClientSingleton = () => {
+  // enables encryption in schemas
+  return new PrismaClient().$extends(fieldEncryptionExtension());
+};
 
-// enables encryption in schemas
-prisma.$extends(fieldEncryptionExtension());
+type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>;
 
-export { prisma };
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClientSingleton | undefined;
+};
+
+export const prisma = globalForPrisma.prisma ?? prismaClientSingleton();
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
