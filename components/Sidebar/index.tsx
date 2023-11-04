@@ -44,7 +44,7 @@ export default function Sidebar({ children }: Props) {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu p-4 w-80 min-h-full bg-secondary text-base-content gap-4">
+        <ul className="menu p-4 w-80 min-h-full text-base-content gap-4">
           <SidebarItem label="Products" href="/admin/products" />
           <SidebarItem label="Servers" href="/admin/servers" />
         </ul>

@@ -1,3 +1,4 @@
+import Modal from "@/components/Modal";
 import CreateProductModal from "@/components/Modals/CreateProductModal";
 import { Prisma } from "@prisma/client";
 
@@ -48,7 +49,20 @@ export default function ProductsTable(server: ProductsProps) {
                     />
                   </th>
                   <th>
-                    <button className="btn">d</button>
+                    <Modal
+                      btn={"d"}
+                      label="Deleting product"
+                      request={async () =>
+                        await fetch(
+                          `/api/servers/${product.serverId}/products/${product.id}`,
+                          { method: "DELETE" }
+                        )
+                      }
+                      validation={() => true}
+                      style="bright"
+                    >
+                      Deleting product {product.name}
+                    </Modal>
                   </th>
                   <th>
                     <button className="btn">m</button>
