@@ -47,7 +47,7 @@ export default function Modal({
         <span>{btn}</span>
       </button>
       <dialog className="modal" ref={modalRef}>
-        <div className="modal-box flex flex-col items-start bg-secondary max-h-none p-0">
+        <div className="modal-box flex flex-col items-start bg-background max-h-none p-0">
           {loading && (
             <div
               className="absolute mx-auto my-auto w-[100%] h-[100%] flex justify-center items-center"

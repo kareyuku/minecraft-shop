@@ -73,16 +73,16 @@ export default function PurchaseModal({
           <h1>{product.description}</h1>
         </div>
       </div>
+      <div className="form-control w-full text-center my-4">
+        <span className="text-third font-bold text-2xl">{Price} zł</span>
+      </div>
       {product.requireOnline && (
-        <div className="text-center text-sm bg-primary py-4 px-6 rounded-md mb-3">
+        <div className="text-center text-sm bg-secondary py-4 px-6 rounded-md mb-3">
           <label>
             You have to be connected to this server while purchasing item.
           </label>
         </div>
       )}
-      <div className="form-control w-full text-left">
-        <span className="text-green-500 font-bold text-2xl">{Price} zł</span>
-      </div>
       {product.minimumBuy && product.maximumBuy && product.minimumBuy >= 1 && (
         <div className="form-control w-full mb-5">
           <label className="label">
@@ -120,7 +120,7 @@ export default function PurchaseModal({
             )
           }
           defaultValue={"pick"}
-          className="select bg-primary"
+          className="select bg-secondary"
           ref={PaymentRef}
         >
           <option value="pick" disabled>
