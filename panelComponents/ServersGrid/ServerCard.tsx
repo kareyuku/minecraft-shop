@@ -18,6 +18,7 @@ export default function ServerCard({
 }) {
   const serverName = useRef<HTMLInputElement>(null);
   const serverIP = useRef<HTMLInputElement>(null);
+  const serverImage = useRef<HTMLInputElement>(null);
 
   const [nameErr, setNameErr] = useState("");
   const [ipErr, setIpErr] = useState("");
@@ -32,6 +33,7 @@ export default function ServerCard({
     const body = {
       ip: serverIP.current?.value,
       name: serverName.current?.value,
+      imageUri: serverImage.current?.value,
     };
     const response = await fetch(`/api/servers/${server.id}`, {
       method: "PATCH",
@@ -84,6 +86,13 @@ export default function ServerCard({
             err=""
             maxLength={50}
             defaultValue={server.ip}
+          />
+          <Input
+            name="Server Image"
+            ref={serverImage}
+            err={""}
+            maxLength={256}
+            defaultValue={server.imageUri || ""}
           />
         </Modal>
         <Modal

@@ -34,6 +34,7 @@ export default function CreateProductModal({ serverId }: { serverId: number }) {
       label={"Creating Product"}
       request={request}
       validation={validation}
+      style={"bright"}
     >
       <Input name="Name" err={nameErr} ref={nameRef} />
       <Input

@@ -11,6 +11,7 @@ export default function CreateServerModal({
 }) {
   const serverName = useRef<HTMLInputElement>(null);
   const serverIP = useRef<HTMLInputElement>(null);
+  const serverImage = useRef<HTMLInputElement>(null);
 
   const [serverNameErr, setNameErr] = useState("");
   const [serverIpErr, setIpErr] = useState("");
@@ -25,6 +26,7 @@ export default function CreateServerModal({
     const data = {
       ip: serverIP.current?.value || "s",
       name: serverName.current?.value || "s",
+      imageUri: serverImage.current?.value,
     };
 
     const response = await fetch("/api/servers", {
@@ -58,6 +60,7 @@ export default function CreateServerModal({
           err={serverIpErr}
           maxLength={50}
         />
+        <Input name="Server Image" ref={serverImage} err={""} maxLength={256} />
       </Modal>
     </>
   );
