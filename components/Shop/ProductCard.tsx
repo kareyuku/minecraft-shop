@@ -1,5 +1,5 @@
-import PurchaseModal from "../PurchaseModal";
 import { Prisma } from "@prisma/client";
+import PurchaseModal from "../Modals/PurchaseModal";
 
 type ProductWithPayments = Prisma.ProductGetPayload<{
   include: { paymentMethods: true };
