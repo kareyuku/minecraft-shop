@@ -10,10 +10,11 @@ export default function CategoryCard({ name, img, serverId }: CategoryProps) {
   return (
     <Link
       href={`/category/${serverId}`}
-      className="card bg-secondary p-10 rounded-md hover:bg-third transition-colors text-center flex items-center flex-col"
+      className="card bg-secondary py-5 rounded-md hover:bg-base-300 transition-colors text-center flex items-center flex-col"
     >
+      <label className="text-xl mb-4">{name}</label>
+
       <img className="rounded-md" width={100} height={100} src={img} />
-      <label>{name}</label>
     </Link>
   );
 }

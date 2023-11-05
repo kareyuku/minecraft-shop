@@ -48,7 +48,7 @@ export default function ServerCard({
       <div className="flex gap-3">
         <div
           className={
-            "card__image bg-primary h-[100px] w-[100px] rounded-md p-5 "
+            "card__image bg-background h-[100px] w-[100px] rounded-md p-5 "
           }
           style={{ height: 100, width: 100 }}
         >

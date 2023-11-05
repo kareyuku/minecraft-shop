@@ -7,7 +7,6 @@ const config: Config = {
     "./components/*.{ts,tsx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./panelComponents/**/*.{js,tx,jsx,tsx,mdx}",
-    "./modals/**/*.{js,tx,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {

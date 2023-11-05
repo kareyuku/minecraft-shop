@@ -15,7 +15,7 @@ export default function ProductsTable(server: ProductsProps) {
         <CreateProductModal serverId={server.id} />
 
         <div className="overflow-x-auto">
-          <table className="table bg-primary mt-4">
+          <table className="table bg-background mt-4">
             <thead>
               <tr>
                 <th>ID</th>

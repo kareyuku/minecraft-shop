@@ -34,7 +34,7 @@ export default function VoucherModal() {
       request={() => {}}
       validation={validation}
     >
-      <div className="text-center text-sm bg-primary py-4 px-6 rounded-md mb-3 mt-5">
+      <div className="text-center text-sm bg-background py-4 px-6 rounded-md mb-3 mt-5">
         <label>
           You have to be connected to this server while purchasing item.
         </label>

@@ -20,6 +20,7 @@ export default function CreateProductModal({ serverId }: { serverId: number }) {
     const body = {
       name: nameRef.current?.value,
       price: Number.parseFloat(priceRef.current?.value || "1"),
+      imageUri: imageRef.current?.value,
     };
     const response = await fetch(`/api/servers/${serverId}/products`, {
       method: "POST",
