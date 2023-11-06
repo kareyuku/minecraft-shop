@@ -9,7 +9,11 @@ export async function POST(req: Request) {
     const paymentMethod = await prisma.paymentMethod.findUnique({
       where: { id: provider },
     });
-    if (!paymentMethod) return;
+    if (!paymentMethod)
+      return Response.json(
+        { message: "Cant find specific payment method" },
+        { status: 404 }
+      );
     if (product.minimumBuy && product.minimumBuy > quanity)
       return Response.json(
         { message: "Quanity should be higher or equals minimum buy" },

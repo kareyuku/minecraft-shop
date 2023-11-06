@@ -48,11 +48,14 @@ export async function POST(req: Request, { params }: ISlug) {
 
 export async function GET(req: Request, { params }: ISlug) {
   try {
-    return Response.json(
-      await prisma.product.findMany({
+    return Response.json({
+      products: await prisma.product.findMany({
         where: { serverId: Number.parseInt(params.serverId) },
-      })
-    );
+      }),
+      paymentsMethods: await prisma.paymentMethod.findMany({
+        distinct: ["currency", "fee", "id", "provider"],
+      }),
+    });
   } catch (err: any) {
     return Response.json({ message: err.message }, { status: 400 });
   }

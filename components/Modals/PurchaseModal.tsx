@@ -1,21 +1,20 @@
 "use client";
 
-import { PaymentMethod, Prisma } from "@prisma/client";
+import { PaymentMethod, Prisma, Product } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
 import Input from "../Input";
 import Modal from "../Modal";
-import { redirect } from "next/navigation";
 
 const regexUsername = /^\w{3,16}$/i;
 
-type ProductWithPayments = Prisma.ProductGetPayload<{
-  include: { paymentMethods: true };
-}>;
-
 export default function PurchaseModal({
   product,
+  payments,
+  card,
 }: {
-  product: ProductWithPayments;
+  product: Product;
+  payments: PaymentMethod[];
+  card: React.ReactNode;
 }) {
   const UsernameRef = useRef<HTMLInputElement>(null);
   const PaymentRef = useRef<HTMLSelectElement>(null);
@@ -74,23 +73,19 @@ export default function PurchaseModal({
 
   return (
     <Modal
-      btn={"Buy"}
+      btn={card}
       label={`Purchasing ${product.name}`}
       request={request}
       validation={validation}
     >
-      <div className="flex my-10 ">
-        <div className="flex-[0.3]">
-          <img
-            className="rounded-md max-h-[200px] aspect-auto mx-auto my-auto"
-            src={product.imageUri || ""}
-          />
-        </div>
-        <div className="flex-[0.7] max-h-[100px]">
-          <h1>{product.description}</h1>
-        </div>
+      <div className="flex my-10 max-sm:flex-col gap-4">
+        <img
+          className="rounded-md h-[100px] w-[100px] aspect-auto my-auto"
+          src={product.imageUri || ""}
+        />
+        <h1>{product.description}</h1>
       </div>
-      <div className="form-control w-full text-center my-4">
+      <div className="form-control w-full text-center">
         <span className="text-third font-bold text-2xl">{Price} zł</span>
       </div>
       {product.requireOnline && (
@@ -131,9 +126,7 @@ export default function PurchaseModal({
         <select
           onChange={(e) =>
             setPaymentMethod(
-              product.paymentMethods.find(
-                (x) => x.id === Number.parseInt(e.target.value)
-              )
+              payments.find((x) => x.id === Number.parseInt(e.target.value))
             )
           }
           defaultValue={"pick"}
@@ -141,7 +134,7 @@ export default function PurchaseModal({
           ref={PaymentRef}
         >
           <option defaultValue="pick">Pick one</option>
-          {product.paymentMethods.map((paymentMethod) => (
+          {payments.map((paymentMethod) => (
             <option key={paymentMethod.id} value={paymentMethod.id}>
               {paymentMethod.provider} - {paymentMethod.fee}%
             </option>

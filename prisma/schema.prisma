@@ -36,11 +36,9 @@ enum PaymentProvider {
 model PaymentMethod {
   id        Int             @id @default(autoincrement())
   fee       Float           @default(0)
+  secret    String
   provider  PaymentProvider
   currency  Currency        @default(PLN)
-  Product   Product         @relation(fields: [productId], references: [id])
-  productId Int
-  secret    String?         
 }
 
 model Product {
@@ -54,7 +52,6 @@ model Product {
   maximumBuy     Int?            
   server         Server          @relation(fields: [serverId], references: [id])
   serverId       Int
-  paymentMethods PaymentMethod[]
   vouchers       Voucher[]
 }
 
