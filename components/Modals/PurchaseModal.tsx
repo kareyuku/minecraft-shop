@@ -4,6 +4,7 @@ import { PaymentMethod, Prisma } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
 import Input from "../Input";
 import Modal from "../Modal";
+import { redirect } from "next/navigation";
 
 const regexUsername = /^\w{3,16}$/i;
 
@@ -33,12 +34,28 @@ export default function PurchaseModal({
       return false;
     }
     setUsernameErr("");
-    if (paymentMethod) {
+    if (!paymentMethod) {
       PaymentRef.current?.focus();
       setPaymentErr("Please select a payment method");
       return false;
     }
     setPaymentErr("");
+    return true;
+  }
+
+  async function request() {
+    const body = {
+      id: product.id,
+      quanity: Quanity,
+      provider: paymentMethod?.id,
+    };
+    const response = await fetch("/api/payment", {
+      method: "POST",
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    if (response.status === 303) window.location.assign(data.url);
+    return response;
   }
 
   const calculatePrice = (quan: number, method?: PaymentMethod) => {
@@ -59,7 +76,7 @@ export default function PurchaseModal({
     <Modal
       btn={"Buy"}
       label={`Purchasing ${product.name}`}
-      request={() => {}}
+      request={request}
       validation={validation}
     >
       <div className="flex my-10 ">
@@ -123,9 +140,7 @@ export default function PurchaseModal({
           className="select bg-secondary"
           ref={PaymentRef}
         >
-          <option value="pick" disabled>
-            Pick one
-          </option>
+          <option defaultValue="pick">Pick one</option>
           {product.paymentMethods.map((paymentMethod) => (
             <option key={paymentMethod.id} value={paymentMethod.id}>
               {paymentMethod.provider} - {paymentMethod.fee}%

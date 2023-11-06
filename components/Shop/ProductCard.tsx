@@ -24,6 +24,7 @@ export default function ProductCard({
       />
       <label className="text-lg mt-1">{product.name}</label>
       <label>{Currency.format(product.price)}</label>
+      <PurchaseModal product={product} />
     </div>
   );
 }
