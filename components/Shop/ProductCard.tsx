@@ -15,26 +15,15 @@ export default function ProductCard({
     currency: "PLN",
   });
   return (
-    <div className="p-4">
-      <div className="h-full bg-secondary hover:bg-secondary rounded-lg overflow-hidden">
-        <img
-          className="lg:h-48 md:h-36 w-full object-cover object-center"
-          src={product.imageUri || ""}
-          alt="Item"
-        />
-        <div className="p-3 px-4">
-          <h2 className="tracking-widest text-xs title-font font-medium mb-1">
-            {product.price}
-          </h2>
-          <h1 className="title-font tfont-medium mb-3 text-lg">
-            {product.name}
-          </h1>
-          <span className="text-background">{product.description}</span>
-          <div className="flex w-full">
-            <PurchaseModal product={product} />
-          </div>
-        </div>
-      </div>
+    <div className="bg-secondary flex flex-col items-center p-5 rounded-md hover:bg-third transition-colors cursor-pointer">
+      <img
+        style={{ height: 150, width: 150 }}
+        className="object-contain"
+        src={product.imageUri || ""}
+        alt="Product"
+      />
+      <label className="text-lg mt-1">{product.name}</label>
+      <label>{Currency.format(product.price)}</label>
     </div>
   );
 }
