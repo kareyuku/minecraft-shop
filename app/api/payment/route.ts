@@ -32,16 +32,19 @@ export async function POST(req: Request) {
 
     if (paymentMethod.provider === PaymentProvider.STRIPE) {
       const StripeProvider = new Stripe(paymentMethod.secret || "");
+      let product_data: Stripe.Checkout.SessionCreateParams.LineItem.PriceData.ProductData =
+        {
+          name: product.name,
+        };
+      if (product.imageUri) product_data.images = [product.imageUri];
+      if (product.description) product_data.description = product.description;
+
       const session = await StripeProvider.checkout.sessions.create({
         line_items: [
           {
             price_data: {
               currency: "pln",
-              product_data: {
-                name: product.name,
-                images: [product.imageUri || ""],
-                description: product.description || "",
-              },
+              product_data,
               unit_amount: calculatedPrice * 100,
             },
             quantity: quanity,
@@ -49,7 +52,7 @@ export async function POST(req: Request) {
         ],
         mode: "payment",
         success_url: "http://localhost:3000/success",
-        cancel_url: "http://lolcalhost:300/cancel",
+        cancel_url: "http://lo calhost:300/cancel",
       });
       return Response.json({ url: session.url || "" }, { status: 303 });
     }

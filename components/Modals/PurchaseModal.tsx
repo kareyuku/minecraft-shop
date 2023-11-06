@@ -73,14 +73,19 @@ export default function PurchaseModal({
 
   return (
     <Modal
-      btn={card}
+      btn={""}
+      customBtn={card}
       label={`Purchasing ${product.name}`}
       request={request}
       validation={validation}
     >
-      <div className="flex my-10 max-sm:flex-col gap-4">
+      <div className="flex my-5 max-sm:flex-col gap-4">
         <img
-          className="rounded-md h-[100px] w-[100px] aspect-auto my-auto"
+          className={
+            product.description
+              ? "rounded-md h-[100px] w-[100px] aspect-auto my-auto"
+              : "rounded-md h-[100px] w-[100px] aspect-auto my-auto mx-auto"
+          }
           src={product.imageUri || ""}
         />
         <h1>{product.description}</h1>
@@ -89,7 +94,7 @@ export default function PurchaseModal({
         <span className="text-third font-bold text-2xl">{Price} zł</span>
       </div>
       {product.requireOnline && (
-        <div className="text-center text-sm bg-secondary py-4 px-6 rounded-md mb-3">
+        <div className="text-center text-sm bg-secondary py-4 px-6 rounded-md mb-3 mt-5">
           <label>
             You have to be connected to this server while purchasing item.
           </label>

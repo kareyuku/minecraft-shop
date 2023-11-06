@@ -9,6 +9,7 @@ type ModalProps = {
   children: React.ReactNode;
   request: Function;
   style?: "dark" | "bright";
+  customBtn?: React.ReactNode;
 };
 
 export default function Modal({
@@ -18,6 +19,7 @@ export default function Modal({
   validation,
   request,
   style,
+  customBtn,
 }: ModalProps) {
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -36,16 +38,22 @@ export default function Modal({
 
   return (
     <>
-      <button
-        onClick={() => modalRef.current?.showModal()}
-        className={
-          style == "bright"
-            ? "btn bg-secondary hover:bg-third text-white"
-            : "btn text-white"
-        }
-      >
-        <span>{btn}</span>
-      </button>
+      {customBtn && (
+        <div onClick={() => modalRef.current?.showModal()}>{customBtn}</div>
+      )}
+      {!customBtn && (
+        <button
+          onClick={() => modalRef.current?.showModal()}
+          className={
+            style == "bright"
+              ? "btn bg-secondary hover:bg-third text-white"
+              : "btn text-white"
+          }
+        >
+          <span>{btn}</span>
+        </button>
+      )}
+
       <dialog className="modal" ref={modalRef}>
         <div className="modal-box flex flex-col items-start bg-background max-h-none p-0">
           {loading && (
