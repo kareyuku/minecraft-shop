@@ -1,3 +1,6 @@
+"use client";
+import Modal from "../Modal";
+
 export default function PaymentOption() {
   return (
     <div>
@@ -11,6 +14,22 @@ export default function PaymentOption() {
           alt="PaymentLogo"
         />
         <label className="text-lg mt-1">Stripe</label>
+        <Modal
+          btn="DELETE"
+          label="Delete Payment Method"
+          request={() => {}}
+          validation={() => true}
+        >
+          Are you sure you want to delete a payment method?
+        </Modal>
+        <Modal
+          btn="Modify"
+          label="Modify Payment Method"
+          request={() => {}}
+          validation={() => false}
+        >
+          delete
+        </Modal>
       </div>
     </div>
   );
