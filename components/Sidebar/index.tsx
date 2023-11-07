@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsBoxFill, BsFillCreditCardFill } from "react-icons/bs";
+import { HiServerStack } from "react-icons/hi2";
 
 type SidebarItemProps = {
   label: string;
@@ -50,7 +51,7 @@ export default function Sidebar({ children }: Props) {
             href="/admin/products"
           />
           <SidebarItem
-            icon={<BsFillCreditCardFill />}
+            icon={<HiServerStack />}
             label="Servers"
             href="/admin/servers"
           />
