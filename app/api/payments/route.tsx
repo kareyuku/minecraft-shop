@@ -6,7 +6,7 @@ interface ISlug {
   };
 }
 
-export async function POST(req: Request, { params }: ISlug) {
+export async function POST(req: Request) {
   const { fee, provider, currency, secret } = await req.json();
 
   try {

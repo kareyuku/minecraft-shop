@@ -65,7 +65,7 @@ export default function Modal({
             </div>
           )}
           <div className="p-5 w-[100%]">
-            <h3 className="font-bold text-lg mb-5">{label}</h3>
+            <h3 className="font-bold text-lg mb-5 text-third">{label}</h3>
             {children}
             <div className="modal-action">
               <button

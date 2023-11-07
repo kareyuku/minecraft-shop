@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { BsBoxFill } from "react-icons/bs";
+import { BsBoxFill, BsFillCreditCardFill } from "react-icons/bs";
 
 type SidebarItemProps = {
   label: string;
   href: string;
+  icon: ReactNode;
 };
 
 type Props = {
@@ -13,16 +14,14 @@ type Props = {
 };
 
 export default function Sidebar({ children }: Props) {
-  const SidebarItem = ({ label, href }: SidebarItemProps) => {
+  const SidebarItem = ({ label, href, icon }: SidebarItemProps) => {
     return (
       <li>
         <Link
           className="text-white bg-primary hover:bg-third hover:text-white text-lg px-6 py-3"
           href={href}
         >
-          <span className="mr-3 bg-secondary px-3 py-3 rounded-md">
-            <BsBoxFill />
-          </span>
+          <span className="mr-3 bg-secondary px-3 py-3 rounded-md">{icon}</span>
           {label}
         </Link>
       </li>
@@ -45,8 +44,21 @@ export default function Sidebar({ children }: Props) {
           className="drawer-overlay"
         ></label>
         <ul className="menu p-4 w-80 min-h-full text-base-content gap-4 ">
-          <SidebarItem label="Products" href="/admin/products" />
-          <SidebarItem label="Servers" href="/admin/servers" />
+          <SidebarItem
+            icon={<BsBoxFill />}
+            label="Products"
+            href="/admin/products"
+          />
+          <SidebarItem
+            icon={<BsFillCreditCardFill />}
+            label="Servers"
+            href="/admin/servers"
+          />
+          <SidebarItem
+            icon={<BsFillCreditCardFill />}
+            label="Payments"
+            href="/admin/payments"
+          />
         </ul>
       </div>
     </div>
