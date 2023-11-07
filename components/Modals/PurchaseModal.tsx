@@ -61,10 +61,17 @@ export default function PurchaseModal({
     const min = product.minimumBuy || 1;
     if (method)
       setPrice(
-        (product.price / min + (product.price / min) * (method?.fee / 100)) *
-          quan
+        Math.floor(
+          ((product.price / min + (product.price / min) * (method?.fee / 100)) *
+            quan +
+            Number.EPSILON) *
+            100
+        ) / 100
       );
-    else setPrice((product.price / min) * quan);
+    else
+      setPrice(
+        Math.round(((product.price / min) * quan + Number.EPSILON) * 100) / 100
+      );
   };
 
   useEffect(() => calculatePrice(Quanity, paymentMethod), [paymentMethod]);
@@ -79,7 +86,7 @@ export default function PurchaseModal({
       request={request}
       validation={validation}
     >
-      <div className="flex my-5 max-sm:flex-col gap-4">
+      <div className="flex mt-10 mb-5 max-sm:flex-col gap-4">
         <img
           className={
             product.description

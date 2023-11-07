@@ -28,7 +28,12 @@ export async function POST(req: Request) {
 
     const min = product.minimumBuy || 1;
     const calculatedPrice =
-      product.price / min + (product.price / min) * (paymentMethod.fee / 100);
+      Math.floor(
+        (product.price / min +
+          (product.price / min) * (paymentMethod.fee / 100) +
+          Number.EPSILON) *
+          100
+      ) / 100;
 
     if (paymentMethod.provider === PaymentProvider.STRIPE) {
       const StripeProvider = new Stripe(paymentMethod.secret || "");
@@ -52,7 +57,7 @@ export async function POST(req: Request) {
         ],
         mode: "payment",
         success_url: "http://localhost:3000/success",
-        cancel_url: "http://lo calhost:300/cancel",
+        cancel_url: "http://localhost:3000/cancel",
       });
       return Response.json({ url: session.url || "" }, { status: 303 });
     }

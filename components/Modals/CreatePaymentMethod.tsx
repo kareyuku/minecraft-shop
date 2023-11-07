@@ -8,6 +8,7 @@ import { useRef, useState } from "react";
 export default function CreatePaymentMethod() {
   const secretKeyRef = useRef<HTMLInputElement>(null);
   const providerRef = useRef<HTMLSelectElement>(null);
+  const feeRef = useRef<HTMLInputElement>(null);
   const [secretErr, setSecretErr] = useState("");
 
   const validate = async () => {
@@ -28,6 +29,7 @@ export default function CreatePaymentMethod() {
     const body = {
       provider: providerRef.current?.value,
       secret: secretKeyRef.current?.value,
+      fee: parseFloat(feeRef.current?.value || "0"),
     };
     const response = await fetch("/api/payments", {
       method: "POST",
@@ -46,6 +48,14 @@ export default function CreatePaymentMethod() {
       style={"bright"}
     >
       <Input err={secretErr} name="Secret Key" ref={secretKeyRef} />
+      <Input
+        err={""}
+        name="Provider Fee %"
+        type="number"
+        min="0"
+        defaultValue={0}
+        ref={feeRef}
+      />
       <div className="form-control w-full mt-3">
         <label className="label">
           <span className="label-text">Choose a payment method</span>
