@@ -1,11 +1,5 @@
 import { prisma, prismaExclude } from "@/lib/prisma";
 
-interface ISlug {
-  params: {
-    paymentMethodId: string;
-  };
-}
-
 export async function POST(req: Request) {
   const { fee, provider, currency, secret } = await req.json();
 
@@ -24,23 +18,10 @@ export async function POST(req: Request) {
   }
 }
 
-export async function DELETE(req: Request, { params }: ISlug) {
-  try {
-    await prisma.paymentMethod.delete({
-      where: { id: Number.parseInt(params.paymentMethodId) },
-    });
-  } catch (err: any) {
-    return Response.json({ message: err.message }, { status: 400 });
-  }
-}
-
-export async function GET(req: Request, { params }: ISlug) {
+export async function GET(req: Request) {
   try {
     return Response.json(
       await prisma.paymentMethod.findMany({
-        where: {
-          id: Number.parseInt(params.paymentMethodId),
-        },
         select: prismaExclude("PaymentMethod", ["secret"]),
       })
     );
