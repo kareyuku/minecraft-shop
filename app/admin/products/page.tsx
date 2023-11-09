@@ -1,4 +1,4 @@
-import ProductsGrid from "@/components/AdminDashboard/ProductsGrid";
+import ProductsGrid from "@/components/dashboard/ProductsGrid";
 import Sidebar from "@/components/Sidebar";
 import { prisma } from "@/lib/prisma";
 

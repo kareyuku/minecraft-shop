@@ -1,6 +1,6 @@
 import Sidebar from "@/components/Sidebar";
 
-import ServersGrid from "@/panelComponents/ServersGrid";
+import ServersGrid from "@/components/dashboard/ServersGrid";
 
 export default async function Servers() {
   return (

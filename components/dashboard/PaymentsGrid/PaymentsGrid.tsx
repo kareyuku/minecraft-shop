@@ -2,7 +2,7 @@
 
 import { PaymentMethod } from "@prisma/client";
 import { useEffect, useState } from "react";
-import PaymentOption from "../PaymentOption";
+import PaymentOption from "./PaymentOption";
 
 export default function PaymentsGrid() {
   const [payments, setPayments] = useState<PaymentMethod[]>([]);

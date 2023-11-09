@@ -20,11 +20,7 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    return Response.json(
-      await prisma.paymentMethod.findMany({
-        select: prismaExclude("PaymentMethod", ["secret"]),
-      })
-    );
+    return Response.json(await prisma.paymentMethod.findMany());
   } catch (err: any) {
     return Response.json({ message: err.message }, { status: 400 });
   }

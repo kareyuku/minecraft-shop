@@ -1,7 +1,7 @@
-import ProductsGrid from "@/components/AdminDashboard/ProductsGrid";
+import ProductsGrid from "@/components/dashboard/ProductsGrid";
 import CreatePaymentMethod from "@/components/Modals/CreatePaymentMethod";
 import Sidebar from "@/components/Sidebar";
-import PaymentOption from "@/components/dashboard/PaymentOption";
+import PaymentOption from "@/components/dashboard/PaymentsGrid/PaymentOption";
 import PaymentsGrid from "@/components/dashboard/PaymentsGrid/PaymentsGrid";
 import { prisma } from "@/lib/prisma";
 
