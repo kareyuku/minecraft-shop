@@ -48,6 +48,9 @@ export default function CreateProductModal({ serverId }: { serverId: number }) {
       />
       <Input name="Image" err={""} ref={imageRef} />
       <Input name="Description" err={""} />
+      <div className="flex">
+        <Input name="Require Online" err={""} type="checkbox" />
+      </div>
     </Modal>
   );
 }
