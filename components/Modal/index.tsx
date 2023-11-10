@@ -22,16 +22,20 @@ export default function Modal({
   customBtn,
 }: ModalProps) {
   const modalRef = useRef<HTMLDialogElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   const SubmitModal = async () => {
+    if (!btnRef.current) return;
+    btnRef.current.disabled = true;
     const validate = await validation();
-    if (!validate) return;
+    if (!validate) return (btnRef.current.disabled = false);
     setLoading(true);
     const response = await request();
     setLoading(false);
     if (response.status == 200) {
       modalRef.current?.close();
     }
+    btnRef.current.disabled = false;
   };
 
   const [loading, setLoading] = useState(false);
@@ -64,13 +68,14 @@ export default function Modal({
               <span className="loading loading-spinner loading-lg "></span>
             </div>
           )}
-          <div className="p-5 w-[100%]">
+          <div className="p-5 w-[100%] flex flex-col gap-y-1">
             <h3 className="font-bold text-lg mb-5 text-third">{label}</h3>
             {children}
             <div className="modal-action">
               <button
                 onClick={SubmitModal}
                 className="btn text-white hover:bg-third"
+                ref={btnRef}
               >
                 Confirm
               </button>

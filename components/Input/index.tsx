@@ -19,8 +19,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         placeholder="Type here"
         className={
           err
-            ? "input bg-secondary w-full input-error"
-            : "input bg-secondary w-full "
+            ? "input focus:outline-none bg-secondary w-full input-error"
+            : "input focus:outline-none bg-secondary w-full "
         }
         ref={ref}
         {...props}
