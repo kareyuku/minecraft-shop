@@ -4,6 +4,12 @@ import ProductCard from "@/components/Shop/ProductCard";
 import { prisma } from "@/lib/prisma";
 import { cache } from "react";
 
+type params = {
+  params: {
+    slug: string;
+  };
+};
+
 export const getProducts = cache(async (serverId: number) => {
   const products = await prisma.product.findMany({ where: { serverId } });
   const payments = await prisma.paymentMethod.findMany({
@@ -12,11 +18,7 @@ export const getProducts = cache(async (serverId: number) => {
   return { products, payments };
 });
 
-export default async function CategoryPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function CategoryPage({ params }: params) {
   const { products, payments } = await getProducts(parseInt(params.slug));
   return (
     <main className="container mx-auto flex flex-col gap-6 mt-10 px-3 max-sm:px-5">
