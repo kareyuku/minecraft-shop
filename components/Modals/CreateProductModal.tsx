@@ -56,13 +56,18 @@ export default function CreateProductModal({ serverId }: { serverId: number }) {
 
   return (
     <Modal
-      btn={"Create a Product"}
+      btn={""}
+      customBtn={
+        <button className="btn bg-background hover:bg-third text-white">
+          Create a Product
+        </button>
+      }
       label={"Creating Product"}
       request={request}
       validation={validation}
       style={"bright"}
     >
-      <Input name="Name" err={nameErr} ref={nameRef} />
+      <Input name="Name" err={nameErr} ref={nameRef} required />
       <Input name="Description" err={""} />
       <Input
         name="Price"
@@ -71,6 +76,7 @@ export default function CreateProductModal({ serverId }: { serverId: number }) {
         min={1}
         defaultValue={1}
         ref={priceRef}
+        required
       />
       <Input name="Image URL" err={""} ref={imageRef} placeholder="Paste URL" />
       <div className="flex gap-3">

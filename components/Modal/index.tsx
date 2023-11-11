@@ -18,8 +18,10 @@ export default function Modal(modalProps: IModalProps) {
 
   const modalRef = useRef<HTMLDialogElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const SubmitModal = async () => {
+  const SubmitModal = async (e: any) => {
+    e.preventDefault();
     if (!btnRef.current) return;
     btnRef.current.disabled = true;
     if (validation) {
@@ -30,6 +32,7 @@ export default function Modal(modalProps: IModalProps) {
     setLoading(false);
     if (response.status == 200) {
       modalRef.current?.close();
+      formRef.current?.reset();
     }
     btnRef.current.disabled = false;
   };
@@ -65,23 +68,25 @@ export default function Modal(modalProps: IModalProps) {
             </div>
           )}
           <div className="p-5 w-[100%] flex flex-col gap-y-1">
-            <h3 className="font-bold text-lg mb-5 text-third">{label}</h3>
-            {children}
-            <div className="modal-action">
-              <button
-                onClick={SubmitModal}
-                className="btn text-white hover:bg-third"
-                ref={btnRef}
-              >
-                Confirm
-              </button>
-              <button
-                onClick={() => modalRef.current?.close()}
-                className="btn text-white hover:bg-red-500"
-              >
-                Close
-              </button>
-            </div>
+            <form ref={formRef} onSubmit={SubmitModal}>
+              <h3 className="font-bold text-lg mb-5 text-third">{label}</h3>
+              {children}
+              <div className="modal-action">
+                <button
+                  type="submit"
+                  className="btn text-white hover:bg-third"
+                  ref={btnRef}
+                >
+                  Confirm
+                </button>
+                <button
+                  onClick={() => modalRef.current?.close()}
+                  className="btn text-white hover:bg-red-500"
+                >
+                  Close
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </dialog>

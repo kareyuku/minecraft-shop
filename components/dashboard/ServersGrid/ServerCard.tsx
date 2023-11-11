@@ -21,12 +21,12 @@ export default function ServerCard(serverCardProps: IServerCard) {
       <div className={"flex max-sm:items-end"}>
         <div className="bg-background h-[100px] w-[100px] rounded-md p-5 aspect-square">
           {server.imageUri && (
-            <img src={server.imageUri} alt="" className="w-full h-full" />
+            <img src={server.imageUri} className="w-full h-full" />
           )}
         </div>
       </div>
-      <div className="flex flex-1 flex-col justify-between">
-        <div className="justify-end flex-1 items-end flex gap-2">
+      <div className="flex flex-1 flex-col">
+        <div className="flex-1 items-end flex gap-2">
           <div className="flex gap-3 flex-1 items-center w-14">
             <label className="items-end flex-1  bg-primary p-3 rounded-md truncate">
               <span className="font-mono">{server.ip}</span>

@@ -130,6 +130,7 @@ export default function PurchaseModal({
         err={UsernameErr}
         ref={UsernameRef}
         maxLength={16}
+        required
       />
       <div className="form-control w-full mb-5">
         <label className="label">
