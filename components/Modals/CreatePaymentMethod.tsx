@@ -1,11 +1,16 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { PaymentProvider } from "@prisma/client";
+
 import Input from "../Input";
 import Modal from "../Modal";
-import { useRef, useState } from "react";
 
-export default function CreatePaymentMethod() {
+interface ICreatePaymentProps {
+  callback: Function;
+}
+
+export default function CreatePaymentMethod({ callback }: ICreatePaymentProps) {
   const secretKeyRef = useRef<HTMLInputElement>(null);
   const providerRef = useRef<HTMLSelectElement>(null);
   const feeRef = useRef<HTMLInputElement>(null);
@@ -35,7 +40,7 @@ export default function CreatePaymentMethod() {
       method: "POST",
       body: JSON.stringify(body),
     });
-    const data = await response.json();
+    if (response.status === 200) callback(await response.json());
     return response;
   };
 

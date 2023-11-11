@@ -1,31 +1,26 @@
 "use client";
 
-import { PaymentMethod } from "@prisma/client";
-import { useEffect, useState } from "react";
 import PaymentOption from "./PaymentOption";
+import CreatePaymentMethod from "@/components/Modals/CreatePaymentMethod";
+import { usePayments } from "./hooks/usePayments";
 
 export default function PaymentsGrid() {
-  const [payments, setPayments] = useState<PaymentMethod[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchPaymentsOptions = async () => {
-    const request = await fetch("/api/payments");
-    const data = await request.json();
-    setPayments(data);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchPaymentsOptions();
-  }, []);
-
-  if (loading) return "Loading";
-
+  const { payments, addPayment, removePayment, editPayment } = usePayments();
   return (
-    <div className="grid grid-cols-5 mt-5">
-      {payments.map((payment) => (
-        <PaymentOption data={payment} />
-      ))}
-    </div>
+    <>
+      <CreatePaymentMethod callback={addPayment} />
+      <div className="grid grid-cols-3 gap-3 mt-5">
+        {payments.length < 1
+          ? "Loading..."
+          : payments.map((payment) => (
+              <PaymentOption
+                paymentOption={payment}
+                removePayment={removePayment}
+                editPayment={editPayment}
+                key={payment.id}
+              />
+            ))}
+      </div>
+    </>
   );
 }

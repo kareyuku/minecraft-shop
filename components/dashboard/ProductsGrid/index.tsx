@@ -1,7 +1,7 @@
 "use client";
 
 import { Prisma, Product } from "@prisma/client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ProductsTable from "./ProductsTable";
 
 type ServersProps = Prisma.ServerGetPayload<{
@@ -19,9 +19,7 @@ export default function ProductsGrid({ servers }: { servers: ServersProps[] }) {
 
   const removeProduct = (serverId: number, productId: number) => {
     const copyServs = [...servs];
-    copyServs
-      .find((srv) => srv.id === serverId)
-      ?.products.filter((product) => product.id !== productId);
+    const server = copyServs.find((srv) => srv.id === serverId);
     setServers(copyServs);
   };
 

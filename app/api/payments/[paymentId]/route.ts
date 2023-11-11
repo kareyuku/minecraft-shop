@@ -18,14 +18,17 @@ export async function PATCH(req: Request, { params }: ISlug) {
       { status: 400 }
     );
   try {
-    await prisma.paymentMethod.update({
-      where: { id: paymentId },
-      data: {
-        fee,
-        currency,
-        secret,
-      },
-    });
+    return Response.json(
+      await prisma.paymentMethod.update({
+        where: { id: paymentId },
+        data: {
+          fee,
+          currency,
+          secret,
+        },
+      }),
+      { status: 200 }
+    );
   } catch (err: any) {
     return Response.json({ message: err.message }, { status: 400 });
   }

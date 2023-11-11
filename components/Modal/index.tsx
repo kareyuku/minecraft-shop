@@ -82,6 +82,7 @@ export default function Modal(modalProps: IModalProps) {
                 <button
                   onClick={() => modalRef.current?.close()}
                   className="btn text-white hover:bg-red-500"
+                  type="reset"
                 >
                   Close
                 </button>
