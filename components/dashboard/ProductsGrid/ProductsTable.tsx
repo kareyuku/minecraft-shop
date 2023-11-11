@@ -6,13 +6,20 @@ type ProductsProps = Prisma.ServerGetPayload<{
   include: { products: true };
 }>;
 
-export default function ProductsTable(server: ProductsProps) {
+interface IProductsTable {
+  server: ProductsProps;
+  add: Function;
+  remove: Function;
+}
+
+export default function ProductsTable(props: IProductsTable) {
+  const { server, add, remove } = props;
   return (
     <div className="collapse collapse-arrow bg-secondary rounded-md mb-6">
       <input type="radio" name="my-accordion-2" />
       <div className="collapse-title text-xl font-medium">{server.name}</div>
       <div className="collapse-content overflow-x-auto">
-        <CreateProductModal serverId={server.id} />
+        <CreateProductModal serverId={server.id} callback={add} />
 
         <div className="overflow-x-auto">
           <table className="table bg-background mt-4">
@@ -52,12 +59,15 @@ export default function ProductsTable(server: ProductsProps) {
                     <Modal
                       btn={"d"}
                       label="Deleting product"
-                      request={async () =>
-                        await fetch(
+                      request={async () => {
+                        const response = await fetch(
                           `/api/servers/${product.serverId}/products/${product.id}`,
                           { method: "DELETE" }
-                        )
-                      }
+                        );
+                        if (response.status === 200)
+                          remove(server.id, product.id);
+                        return response;
+                      }}
                       validation={() => true}
                       style="bright"
                     >

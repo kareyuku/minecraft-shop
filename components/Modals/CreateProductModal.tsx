@@ -4,7 +4,13 @@ import { useRef, useState } from "react";
 import Input from "../Input";
 import Modal from "../Modal";
 
-export default function CreateProductModal({ serverId }: { serverId: number }) {
+export default function CreateProductModal({
+  serverId,
+  callback,
+}: {
+  serverId: number;
+  callback: Function;
+}) {
   const nameRef = useRef<HTMLInputElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
@@ -51,6 +57,7 @@ export default function CreateProductModal({ serverId }: { serverId: number }) {
       method: "POST",
       body: JSON.stringify(body),
     });
+    if (response.status === 200) callback(serverId, await response.json());
     return response;
   }
 
