@@ -1,7 +1,7 @@
 "use client";
 
-import Input from "@/components/Input";
-import Modal from "@/components/Modal";
+import Input from "@/components/ui/Input";
+import Modal from "@/components/ui/Modal";
 import { useRef, useState } from "react";
 
 export default function CreateServerModal({

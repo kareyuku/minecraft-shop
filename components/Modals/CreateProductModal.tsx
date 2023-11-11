@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Input from "../Input";
-import Modal from "../Modal";
+import Input from "../ui/Input";
+import Modal from "../ui/Modal";
 
 export default function CreateProductModal({
   serverId,

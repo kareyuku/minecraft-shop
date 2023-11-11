@@ -1,7 +1,7 @@
 "use client";
 
 import ServerCard from "./ServerCard";
-import CreateServerModal from "@/components/Modals/CreateServerModal";
+import CreateServerModal from "@/components/modals/CreateServerModal";
 import useServers from "./hooks/useServers";
 
 export default function ServersGrid() {

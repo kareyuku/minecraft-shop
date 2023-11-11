@@ -1,8 +1,8 @@
 "use client";
 import { useRef, useState } from "react";
-import Modal from "@/components/Modal";
+import Modal from "@/components/ui/Modal";
 import { PaymentMethod } from "@prisma/client";
-import Input from "@/components/Input";
+import Input from "@/components/ui/Input";
 
 interface IPaymentEditProps {
   paymentOption: PaymentMethod;

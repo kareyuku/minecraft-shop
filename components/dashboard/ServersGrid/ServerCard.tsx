@@ -1,7 +1,7 @@
 "use client";
 
 import { Server } from "@prisma/client";
-import DeleteModal from "@/components/Modals/DeleteModal";
+import DeleteModal from "@/components/modals/DeleteModal";
 import ServerPatchModal from "./ServerPatchModal";
 
 interface IServerCard {

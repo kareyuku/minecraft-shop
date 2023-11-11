@@ -3,8 +3,8 @@
 import { useRef, useState } from "react";
 import { PaymentProvider } from "@prisma/client";
 
-import Input from "../Input";
-import Modal from "../Modal";
+import Input from "../ui/Input";
+import Modal from "../ui/Modal";
 
 interface ICreatePaymentProps {
   callback: Function;

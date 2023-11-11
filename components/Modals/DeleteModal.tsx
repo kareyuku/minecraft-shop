@@ -1,5 +1,5 @@
 "use client";
-import Modal from "../Modal";
+import Modal from "../ui/Modal";
 
 import { AiFillDelete } from "react-icons/ai";
 

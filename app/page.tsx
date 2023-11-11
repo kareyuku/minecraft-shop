@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/ui/Navbar";
 import CategoryCard from "@/components/Shop/CategoryCard";
 import RecentPurchases from "@/components/Shop/Modules/RecentPurchases";
 import { prisma } from "@/lib/prisma";

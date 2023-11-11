@@ -1,5 +1,5 @@
 import ProductsGrid from "@/components/dashboard/ProductsGrid";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/ui/Sidebar";
 import { prisma } from "@/lib/prisma";
 import { cache } from "react";
 

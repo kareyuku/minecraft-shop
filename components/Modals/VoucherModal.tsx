@@ -2,8 +2,8 @@
 
 import { useRef, useState } from "react";
 import { BsGiftFill } from "react-icons/bs";
-import Input from "../Input";
-import Modal from "../Modal";
+import Input from "../ui/Input";
+import Modal from "../ui/Modal";
 
 const regexUsername = /^\w{3,16}$/i;
 

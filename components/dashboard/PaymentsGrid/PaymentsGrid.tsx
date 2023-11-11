@@ -1,7 +1,7 @@
 "use client";
 
 import PaymentOption from "./PaymentOption";
-import CreatePaymentMethod from "@/components/Modals/CreatePaymentMethod";
+import CreatePaymentMethod from "@/components/modals/CreatePaymentMethod";
 import { usePayments } from "./hooks/usePayments";
 
 export default function PaymentsGrid() {

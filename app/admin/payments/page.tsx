@@ -1,5 +1,5 @@
 import ProductsGrid from "@/components/dashboard/ProductsGrid";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/ui/Sidebar";
 import PaymentOption from "@/components/dashboard/PaymentsGrid/PaymentOption";
 import PaymentsGrid from "@/components/dashboard/PaymentsGrid/PaymentsGrid";
 import { prisma } from "@/lib/prisma";

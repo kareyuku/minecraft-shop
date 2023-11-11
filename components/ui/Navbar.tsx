@@ -2,7 +2,7 @@ import Link, { LinkProps } from "next/link";
 import { ReactNode } from "react";
 import { BsWalletFill } from "react-icons/bs";
 import { FaShoppingCart } from "react-icons/fa";
-import VoucherModal from "./Modals/VoucherModal";
+import VoucherModal from "../modals/VoucherModal";
 
 type NavbarItem = {
   Icon?: ReactNode;

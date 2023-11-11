@@ -1,5 +1,5 @@
-import Modal from "@/components/Modal";
-import CreateProductModal from "@/components/Modals/CreateProductModal";
+import Modal from "@/components/ui/Modal";
+import CreateProductModal from "@/components/modals/CreateProductModal";
 import { Prisma } from "@prisma/client";
 
 type ProductsProps = Prisma.ServerGetPayload<{
