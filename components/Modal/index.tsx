@@ -2,33 +2,29 @@
 
 import { useRef, useState } from "react";
 
-type ModalProps = {
+interface IModalProps {
   btn: string | React.ReactNode;
   label: string;
-  validation: Function;
-  children: React.ReactNode;
-  request: Function;
   style?: "dark" | "bright";
+  validation?: Function;
+  request: Function;
   customBtn?: React.ReactNode;
-};
+  children: React.ReactNode;
+}
 
-export default function Modal({
-  btn,
-  label,
-  children,
-  validation,
-  request,
-  style,
-  customBtn,
-}: ModalProps) {
+export default function Modal(modalProps: IModalProps) {
+  const { btn, label, validation, children, request, style, customBtn } =
+    modalProps;
+
   const modalRef = useRef<HTMLDialogElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
 
   const SubmitModal = async () => {
     if (!btnRef.current) return;
     btnRef.current.disabled = true;
-    const validate = await validation();
-    if (!validate) return (btnRef.current.disabled = false);
+    if (validation) {
+      if (!(await validation())) return (btnRef.current.disabled = false);
+    }
     setLoading(true);
     const response = await request();
     setLoading(false);

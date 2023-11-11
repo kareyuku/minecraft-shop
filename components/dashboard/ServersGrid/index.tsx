@@ -36,7 +36,7 @@ export default function ServersGrid() {
   return (
     <>
       <CreateServerModal addServer={addServer} />
-      <section className="grid max-sm:grid-cols-1 grid-cols-2 gap-4 mt-5">
+      <section className="grid grid-cols-2 gap-4 mt-5 mx-auto">
         {servers.map((server) => (
           <ServerCard
             server={server}
