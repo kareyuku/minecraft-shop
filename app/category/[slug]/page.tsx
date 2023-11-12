@@ -10,7 +10,7 @@ type params = {
   };
 };
 
-export const getProducts = cache(async (serverId: number) => {
+export const getProducts = cache(async (serverId: string) => {
   const products = await prisma.product.findMany({ where: { serverId } });
   const payments = await prisma.paymentMethod.findMany({
     distinct: ["fee", "provider"],
@@ -19,7 +19,7 @@ export const getProducts = cache(async (serverId: number) => {
 });
 
 export default async function CategoryPage({ params }: params) {
-  const { products, payments } = await getProducts(parseInt(params.slug));
+  const { products, payments } = await getProducts(params.slug);
   return (
     <main className="container mx-auto flex flex-col gap-6 mt-10 px-3 max-sm:px-5">
       <Navbar />

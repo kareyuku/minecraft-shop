@@ -8,7 +8,7 @@ export default function CreateProductModal({
   serverId,
   callback,
 }: {
-  serverId: number;
+  serverId: string;
   callback: Function;
 }) {
   const nameRef = useRef<HTMLInputElement>(null);
@@ -46,6 +46,7 @@ export default function CreateProductModal({
 
   async function request() {
     const body = {
+      id: serverId,
       name: nameRef.current?.value,
       price: Number.parseFloat(priceRef.current?.value || "1"),
       imageUri: imageRef.current?.value,
@@ -53,7 +54,7 @@ export default function CreateProductModal({
       minimumBuy: parseInt(minimumBuyRef.current?.value || "1"),
       maximumBuy: parseInt(maximumBuyRef.current?.value || "1"),
     };
-    const response = await fetch(`/api/servers/${serverId}/products`, {
+    const response = await fetch(`/api/products`, {
       method: "POST",
       body: JSON.stringify(body),
     });

@@ -4,7 +4,7 @@ import handlePrismaError from "@/lib/prismaErrorHandler";
 export async function POST(req: Request) {
   // TO DO ADD VOUCHERS
   const {
-    serverId,
+    id,
     price,
     name,
     description,
@@ -14,11 +14,6 @@ export async function POST(req: Request) {
     maximumBuy,
   } = await req.json();
 
-  const id = parseInt(serverId);
-
-  if (!id)
-    return Response.json({ message: "serverId must be a valid Integer." }, { status: 400 });
-
   try {
     await prisma.server.findUniqueOrThrow({
       where: { id },
@@ -26,6 +21,7 @@ export async function POST(req: Request) {
 
     const product = await prisma.product.create({
       data: {
+        serverId: id,
         price,
         name,
         description,
@@ -33,7 +29,6 @@ export async function POST(req: Request) {
         requireOnline,
         minimumBuy,
         maximumBuy,
-        serverId,
       },
     });
 
@@ -51,15 +46,12 @@ export async function POST(req: Request) {
 export async function GET() {
   try {
     return Response.json({
-      products: await prisma.product.findMany({
-      }),
+      products: await prisma.product.findMany({}),
       paymentsMethods: await prisma.paymentMethod.findMany({
         select: {
-          id: true,
           fee: true,
           provider: true,
-          currency: true
-        }
+        },
       }),
     });
   } catch (err: any) {

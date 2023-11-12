@@ -1,11 +1,11 @@
 import { prisma } from "@/lib/prisma";
 import handlePrismaError from "@/lib/prismaErrorHandler";
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
-  const id = parseInt(params.id);
-
-  if (!id)
-    return Response.json({ message: "id must be a valid Integer." }, { status: 400 });
+export async function GET(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
 
   try {
     return Response.json(
@@ -18,15 +18,15 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  const id = parseInt(params.id);
-
-  if (!id)
-    return Response.json({ message: "id must be a valid Integer." }, { status: 400 });
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
 
   try {
-    await prisma.product.deleteMany({where: {serverId: id}});
-    
+    await prisma.product.deleteMany({ where: { serverId: id } });
+
     return Response.json(
       await prisma.server.delete({
         where: { id },
@@ -37,17 +37,16 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
   }
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
-  const { name, ip, imageUri } = await req.json(),
-    id = parseInt(params.id);
-
-  if (!id)
-    return Response.json({ message: "id must be a valid Integer." },{ status: 400 });
+export async function PATCH(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  const { name, ip, imageUri } = await req.json();
 
   try {
     return Response.json(
       await prisma.server.update({
-        where: { id },
+        where: { id: params.id },
         data: { name, ip, imageUri },
       })
     );
