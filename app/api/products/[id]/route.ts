@@ -9,8 +9,44 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 
   try {
     return Response.json(
-      await prisma.server.findFirstOrThrow({
-        where: { id: parseInt(params.id) },
+      await prisma.product.findFirstOrThrow({
+        where: { id },
+      })
+    );
+  } catch (err: any) {
+    return handlePrismaError(err);
+  }
+}
+
+export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+  const {
+    price,
+    name,
+    description,
+    imageUri,
+    requireOnline,
+    minimumBuy,
+    maximumBuy,
+  } = await req.json();
+
+  const id = parseInt(params.id);
+
+  if (!id)
+    return Response.json({ message: "id must be a valid Integer." }, { status: 400 });
+
+  try {
+    return Response.json(
+      await prisma.product.update({
+        where: { id },
+        data: {
+          price,
+          name,
+          description,
+          imageUri,
+          requireOnline,
+          minimumBuy,
+          maximumBuy,
+        },
       })
     );
   } catch (err: any) {
@@ -25,30 +61,9 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     return Response.json({ message: "id must be a valid Integer." }, { status: 400 });
 
   try {
-    await prisma.product.deleteMany({where: {serverId: id}});
-    
     return Response.json(
-      await prisma.server.delete({
-        where: { id: parseInt(params.id) },
-      })
-    );
-  } catch (err: any) {
-    return handlePrismaError(err);
-  }
-}
-
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
-  const { name, ip, imageUri } = await req.json(),
-    id = parseInt(params.id);
-
-  if (!id)
-    return Response.json({ message: "id must be a valid Integer." },{ status: 400 });
-
-  try {
-    return Response.json(
-      await prisma.server.update({
-        where: { id: parseInt(params.id) },
-        data: { name, ip, imageUri },
+      await prisma.product.delete({
+        where: { id },
       })
     );
   } catch (err: any) {

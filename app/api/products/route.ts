@@ -14,10 +14,16 @@ export async function POST(req: Request) {
     maximumBuy,
   } = await req.json();
 
+  const id = parseInt(serverId);
+
+  if (!id)
+    return Response.json({ message: "serverId must be a valid Integer." }, { status: 400 });
+
   try {
     await prisma.server.findUniqueOrThrow({
-      where: { id: serverId },
+      where: { id },
     });
+
     const product = await prisma.product.create({
       data: {
         price,
@@ -32,9 +38,10 @@ export async function POST(req: Request) {
     });
 
     await prisma.server.update({
-      where: { id: serverId },
+      where: { id },
       data: { products: { connect: { id: product.id } } },
     });
+
     return Response.json(product);
   } catch (err: any) {
     return handlePrismaError(err);
@@ -47,7 +54,12 @@ export async function GET(req: Request) {
       products: await prisma.product.findMany({
       }),
       paymentsMethods: await prisma.paymentMethod.findMany({
-        distinct: ["currency", "fee", "id", "provider"],
+        select: {
+          id: true,
+          fee: true,
+          provider: true,
+          currency: true
+        }
       }),
     });
   } catch (err: any) {
