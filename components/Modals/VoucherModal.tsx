@@ -26,8 +26,9 @@ export default function VoucherModal() {
   return (
     <Modal
       label="Reedem Voucher"
-      btn={
-        <span className="flex gap-2">
+      btn={""}
+      customBtn={
+        <span className="flex items-center gap-2 hover:bg-third transition-colors cursor-pointer px-5 py-2 rounded-md">
           <BsGiftFill /> Reedem Voucher
         </span>
       }

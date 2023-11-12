@@ -23,16 +23,13 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-secondary py-6 px-5 rounded-md flex justify-between max-sm:flex-col">
-      <section className="navbar__category flex gap-2">
-        <NavbarItem text={"Shop"} Icon={<FaShoppingCart />} href={"/"} />
-        <NavbarItem
-          text={"Documents"}
-          Icon={<BsWalletFill />}
-          href={"/documents"}
-        />
+    <nav className="py-6 rounded-md flex justify-between max-sm:flex-col text-xl">
+      <section className="navbar__category flex gap-2 uppercase font-bold">
+        <h1>Shopiku.pl</h1>
       </section>
       <section className="navbar_category flex gap-2">
+        <NavbarItem text={"Shop"} href={"/"} />
+        <NavbarItem text={"Documents"} href={"/documents"} />
         <VoucherModal />
       </section>
     </nav>
