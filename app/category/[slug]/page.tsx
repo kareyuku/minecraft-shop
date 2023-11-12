@@ -23,7 +23,7 @@ export default async function CategoryPage({ params }: params) {
   return (
     <main className="container mx-auto flex flex-col gap-6 mt-10 px-3 max-sm:px-5">
       <Navbar />
-      <h1 className="text-lg">Category: Survival</h1>
+      <h1 className="text-2xl">Category: Survival</h1>
       <section className="flex flex-col gap-10">
         <section className="grid max-sm:grid-cols-1 max-md:grid-cols-2 max-lg:grid-cols-3 grid-cols-3 gap-4">
           {products.map((product) => (
