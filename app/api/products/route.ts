@@ -1,14 +1,10 @@
 import { prisma } from "@/lib/prisma";
+import handlePrismaError from "@/lib/prismaErrorHandler";
 
-interface ISlug {
-  params: {
-    serverId: string;
-  };
-}
-
-export async function POST(req: Request, { params }: ISlug) {
+export async function POST(req: Request) {
   // TO DO ADD VOUCHERS
   const {
+    serverId,
     price,
     name,
     description,
@@ -17,11 +13,10 @@ export async function POST(req: Request, { params }: ISlug) {
     minimumBuy,
     maximumBuy,
   } = await req.json();
-  const id = Number.parseInt(params.serverId);
 
   try {
     await prisma.server.findUniqueOrThrow({
-      where: { id },
+      where: { id: serverId },
     });
     const product = await prisma.product.create({
       data: {
@@ -32,31 +27,30 @@ export async function POST(req: Request, { params }: ISlug) {
         requireOnline,
         minimumBuy,
         maximumBuy,
-        serverId: id,
+        serverId,
       },
     });
 
     await prisma.server.update({
-      where: { id },
+      where: { id: serverId },
       data: { products: { connect: { id: product.id } } },
     });
     return Response.json(product);
   } catch (err: any) {
-    return Response.json({ message: err.message }, { status: 400 });
+    return handlePrismaError(err);
   }
 }
 
-export async function GET(req: Request, { params }: ISlug) {
+export async function GET(req: Request) {
   try {
     return Response.json({
       products: await prisma.product.findMany({
-        where: { serverId: Number.parseInt(params.serverId) },
       }),
       paymentsMethods: await prisma.paymentMethod.findMany({
         distinct: ["currency", "fee", "id", "provider"],
       }),
     });
   } catch (err: any) {
-    return Response.json({ message: err.message }, { status: 400 });
+    return handlePrismaError(err);
   }
 }

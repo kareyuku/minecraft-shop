@@ -29,8 +29,7 @@ export async function POST(req: Request) {
     const min = product.minimumBuy || 1;
     const calculatedPrice =
       Math.floor(
-        (product.price / min +
-          (product.price / min) * (paymentMethod.fee / 100) +
+        ((product.price / min) * (paymentMethod.fee / 100 + 1) +
           Number.EPSILON) *
           100
       ) / 100;

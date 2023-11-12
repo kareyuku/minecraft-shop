@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import handlePrismaError from "@/lib/prismaErrorHandler";
 
 interface ISlug {
   params: {
@@ -7,13 +8,6 @@ interface ISlug {
 }
 
 export async function GET(req: Request, { params }: ISlug) {
-  /*const id = Number.parseInt(params.serverId);
-
-  if (!id)
-    return Response.json(
-      { message: "Server serverId must be an Integer" },
-      { status: 400 }
-    );*/
 
   try {
     return Response.json(
@@ -22,27 +16,12 @@ export async function GET(req: Request, { params }: ISlug) {
       })
     );
   } catch (err: any) {
-    /*
-    if (err.code === "P2025")
-      return Response.json(
-        { message: "There is no server with this ip." },
-        { status: 404 }
-      );
-*/
-    return Response.json({ message: err.message }, { status: 400 });
+    console.log(err);
+    return handlePrismaError(err);
   }
 }
 
 export async function DELETE(req: Request, { params }: ISlug) {
-  /*
-  const id = Number.parseInt(params.serverId);
-
-  if (!id)
-    return Response.json(
-      { message: "Server serverId must be an Integer" },
-      { status: 400 }
-    );
-*/
   try {
     return Response.json(
       await prisma.server.delete({
@@ -50,29 +29,12 @@ export async function DELETE(req: Request, { params }: ISlug) {
       })
     );
   } catch (err: any) {
-    /*
-    if (err.code === "P2025")
-      return Response.json(
-        { message: "There is no server with this ip." },
-        { status: 404 }
-      );
-      */
-
-    return Response.json({ message: err.message }, { status: 400 });
+    return handlePrismaError(err);
   }
 }
 
 export async function PATCH(req: Request, { params }: ISlug) {
   const { name, ip, imageUri } = await req.json();
-  /*
-  const id = Number.parseInt(params.serverId);
-
-  if (!id)
-    return Response.json(
-      { message: "Server serverId must be an Integer" },
-      { status: 400 }
-    );
-*/
 
   try {
     return Response.json(
@@ -82,19 +44,6 @@ export async function PATCH(req: Request, { params }: ISlug) {
       })
     );
   } catch (err: any) {
-    /*
-    if (err.code === "P2002")
-      return Response.json(
-        { message: "There is already a server with this ip." },
-        { status: 409 }
-      );
-    if (err.code === "P2025")
-      return Response.json(
-        { message: "There is no server with this ip." },
-        { status: 404 }
-      );
-      */
-
-    return Response.json({ message: err.message }, { status: 400 });
+    return handlePrismaError(err);
   }
 }
