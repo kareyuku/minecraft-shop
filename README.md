@@ -1,7 +1,6 @@
 <div align="center">
   <a href="https://github.com/b4rtuus" align="center"><img align="center" width="100" src="https://media.tenor.com/hR312hTG5T0AAAAj/mythikore-anime-girl.gif"></a>
 </div>
-
 <br>
 
 <p align="center">
