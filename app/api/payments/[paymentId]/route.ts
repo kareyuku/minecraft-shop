@@ -23,7 +23,6 @@ export async function PATCH(req: Request, { params }: ISlug) {
         where: { id: paymentId },
         data: {
           fee,
-          currency,
           secret,
         },
       }),

@@ -13,7 +13,7 @@ type params = {
 export const getProducts = cache(async (serverId: number) => {
   const products = await prisma.product.findMany({ where: { serverId } });
   const payments = await prisma.paymentMethod.findMany({
-    distinct: ["currency", "fee", "id", "provider"],
+    distinct: ["fee", "provider"],
   });
   return { products, payments };
 });

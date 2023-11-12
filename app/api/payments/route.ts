@@ -1,36 +1,27 @@
 import { prisma } from "@/lib/prisma";
+import handlePrismaError from "@/lib/prismaErrorHandler";
 
 export async function POST(req: Request) {
-  const { fee, provider, currency, secret } = await req.json();
-
-  const already_exist = await prisma.paymentMethod.findFirst({
-    where: { provider },
-  });
-  if (already_exist)
-    return Response.json(
-      { message: "You already have this provider." },
-      { status: 409 }
-    );
+  const { fee, provider, secret } = await req.json();
 
   try {
-    const paymentMethod = await prisma.paymentMethod.create({
-      data: {
-        provider,
-        fee,
-        currency,
-        secret,
-      },
-    });
-    return Response.json(paymentMethod);
+    return Response.json(
+      await prisma.paymentMethod.create({
+        data: {
+          provider,
+          fee,
+          secret,
+        },
+      }));
   } catch (err: any) {
-    return Response.json({ message: err.message }, { status: 400 });
+    return handlePrismaError(err);
   }
 }
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
     return Response.json(await prisma.paymentMethod.findMany());
   } catch (err: any) {
-    return Response.json({ message: err.message }, { status: 400 });
+    return handlePrismaError(err);
   }
 }

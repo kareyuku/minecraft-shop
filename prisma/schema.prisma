@@ -9,12 +9,6 @@ datasource db {
 
 // Enums
 
-enum Currency {
-  PLN
-  USD
-  EUR
-}
-
 enum PaymentProvider {
   STRIPE
   PRZELEWY24
@@ -31,37 +25,35 @@ enum PaymentProvider {
 // Models
 
 model PaymentMethod {
-  id        Int             @id @default(autoincrement())
-  fee       Float           @default(0)
-  secret    String
-  provider  PaymentProvider @unique
-  currency  Currency        @default(PLN)
+  provider PaymentProvider @id
+  fee      Float           @default(0)
+  secret   String
 }
 
 model Product {
-  id             Int             @id @default(autoincrement())
-  price          Float           @default(1)  
-  name           String
-  description    String?
-  imageUri       String?
-  requireOnline  Boolean         @default(false)
-  minimumBuy     Int?
-  maximumBuy     Int?            
-  server         Server          @relation(fields: [serverId], references: [id])
-  serverId       Int
-  vouchers       Voucher[]
+  id            Int       @id @default(autoincrement())
+  price         Float     @default(1)
+  name          String
+  description   String?
+  imageUri      String?
+  requireOnline Boolean   @default(false)
+  minimumBuy    Int?
+  maximumBuy    Int?
+  server        Server    @relation(fields: [serverId], references: [id])
+  serverId      String
+  vouchers      Voucher[]
 }
 
 model Server {
-  id       Int       @id @default(autoincrement())
+  id       String    @id @default(uuid())
   name     String
   ip       String    @unique
   imageUri String?
-  products  Product[]
+  products Product[]
 }
 
 model Voucher {
-  id         String @id @default(uuid())
-  product    Product @relation(fields: [productId], references: [id] )
-  productId  Int
+  id        String  @id @default(uuid())
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
 }
