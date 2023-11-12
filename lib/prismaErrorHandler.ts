@@ -1,16 +1,17 @@
 import { PrismaClientValidationError } from "@prisma/client/runtime/library";
 
 export default function handlePrismaError(err: any) {
-    if (err instanceof PrismaClientValidationError)
-        return Response.json({message: "Argument" + err.message.split("Argument")[1]}, {status: 400});
+  console.log(err);
 
-    console.log(err)
-    switch (err.code) {
-        case 'P2025':
-            return Response.json({message: `${err.meta?.cause || err.message}`}, {status: 404});
-        
-        default:
-            // handling all other errors
-            return Response.json({message: "Internal server error."}, {status: 500});
-    }
-};
+  if (err instanceof PrismaClientValidationError)
+    return Response.json({ message: "Argument" + err.message.split("Argument")[1] }, { status: 400 });
+
+  switch (err.code) {
+    case "P2025": // Prisma results aren't consistent sadly
+      return Response.json({ message: `${err.meta?.cause || err.message}` }, { status: 404 });
+
+    default:
+      // handling all other errors
+      return Response.json({ message: "Internal server error." }, { status: 500 });
+  }
+}

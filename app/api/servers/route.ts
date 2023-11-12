@@ -12,7 +12,8 @@ export async function POST(req: Request) {
           ip,
           imageUri,
         },
-      })
+      }),
+      { status: 201 }
     );
   } catch (err: any) {
     return handlePrismaError(err);
