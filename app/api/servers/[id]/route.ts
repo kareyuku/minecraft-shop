@@ -10,7 +10,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   try {
     return Response.json(
       await prisma.server.findFirstOrThrow({
-        where: { id: parseInt(params.id) },
+        where: { id },
       })
     );
   } catch (err: any) {
@@ -29,7 +29,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     
     return Response.json(
       await prisma.server.delete({
-        where: { id: parseInt(params.id) },
+        where: { id },
       })
     );
   } catch (err: any) {
@@ -47,7 +47,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   try {
     return Response.json(
       await prisma.server.update({
-        where: { id: parseInt(params.id) },
+        where: { id },
         data: { name, ip, imageUri },
       })
     );
