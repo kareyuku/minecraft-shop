@@ -1,31 +1,19 @@
 "use client";
 
-import { Prisma, Product } from "@prisma/client";
-import { useState } from "react";
+import { Prisma } from "@prisma/client";
 import ProductsTable from "./ProductsTable";
+import useProducts from "./hooks/useProducts";
 
 type ServersProps = Prisma.ServerGetPayload<{
   include: { products: true };
 }>;
 
-export default function ProductsGrid({ servers }: { servers: ServersProps[] }) {
-  const [servs, setServers] = useState<ServersProps[]>(servers);
-
-  const addProduct = (serverId: number, product: Product) => {
-    const copyServs = [...servs];
-    copyServs.find((srv) => srv.id === serverId)?.products.push(product);
-    setServers(copyServs);
-  };
-
-  const removeProduct = (serverId: number, productId: number) => {
-    const copyServs = [...servs];
-    const server = copyServs.find((srv) => srv.id === serverId);
-    setServers(copyServs);
-  };
+export default function ProductsGrid({ data }: { data: ServersProps[] }) {
+  const { servers, addProduct, removeProduct } = useProducts(data);
 
   return (
     <>
-      {servs.map((server) => (
+      {servers.map((server) => (
         <ProductsTable
           server={server}
           add={addProduct}

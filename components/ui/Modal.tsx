@@ -73,18 +73,18 @@ export default function Modal(modalProps: IModalProps) {
               {children}
               <div className="modal-action">
                 <button
-                  type="submit"
-                  className="btn text-white hover:bg-third"
-                  ref={btnRef}
-                >
-                  Confirm
-                </button>
-                <button
                   onClick={() => modalRef.current?.close()}
                   className="btn text-white hover:bg-red-500"
                   type="reset"
                 >
                   Close
+                </button>
+                <button
+                  type="submit"
+                  className="btn text-white hover:bg-third"
+                  ref={btnRef}
+                >
+                  Confirm
                 </button>
               </div>
             </form>
