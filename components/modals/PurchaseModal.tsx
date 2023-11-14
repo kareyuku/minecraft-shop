@@ -107,24 +107,27 @@ export default function PurchaseModal({
           </label>
         </div>
       )}
-      {product.minimumBuy && product.maximumBuy && product.minimumBuy >= 1 && (
-        <div className="form-control w-full mb-5">
-          <label className="label">
-            <span className="label-text">
-              Quanity {`${Quanity}/${product.maximumBuy}`}
-            </span>
-          </label>
-          <input
-            min={product.minimumBuy}
-            max={product.maximumBuy}
-            step="1"
-            type="range"
-            className="range w-full"
-            value={Quanity}
-            onChange={(e) => setQuanity(Number.parseInt(e.target.value))}
-          />
-        </div>
-      )}
+      {product.minimumBuy &&
+        product.maximumBuy &&
+        product.minimumBuy >= 1 &&
+        product.maximumBuy !== product.minimumBuy && (
+          <div className="form-control w-full mb-5">
+            <label className="label">
+              <span className="label-text">
+                Quanity {`${Quanity}/${product.maximumBuy}`}
+              </span>
+            </label>
+            <input
+              min={product.minimumBuy}
+              max={product.maximumBuy}
+              step="1"
+              type="range"
+              className="range w-full"
+              value={Quanity}
+              onChange={(e) => setQuanity(Number.parseInt(e.target.value))}
+            />
+          </div>
+        )}
       <Input
         name="Username"
         err={UsernameErr}
