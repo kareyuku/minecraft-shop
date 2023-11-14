@@ -17,7 +17,7 @@ export default function PaymentsGrid() {
                 paymentOption={payment}
                 removePayment={removePayment}
                 editPayment={editPayment}
-                key={payment.id}
+                key={payment.provider}
               />
             ))}
       </div>

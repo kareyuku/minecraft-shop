@@ -13,7 +13,7 @@ export default function useServers() {
 
   const addServer = (server: Server) => setServers([...servers, server]);
 
-  const removeServer = (serverId: number) =>
+  const removeServer = (serverId: string) =>
     setServers(servers.filter((server: Server) => server.id !== serverId));
 
   const editServer = async (server: Server) => {

@@ -22,7 +22,7 @@ export default function PaymentOption(props: IPaymentOptionProps) {
       <div className="flex pt-5 gap-3">
         <PaymentEdit paymentOption={paymentOption} callback={editPayment} />
         <DeleteModal
-          action={`/api/payments/${paymentOption.id}`}
+          action={`/api/payments/${paymentOption.provider}`}
           callback={removePayment}
           header="Deleting a Payment Method"
           text="Are you sure you want to delete a payment method?"

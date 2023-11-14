@@ -3,7 +3,7 @@ import handlePrismaError from "@/lib/prismaErrorHandler";
 
 export async function POST(req: Request) {
   const { name, ip, imageUri } = await req.json();
-  
+
   try {
     return Response.json(
       await prisma.server.create({
@@ -22,7 +22,9 @@ export async function POST(req: Request) {
 
 export async function GET() {
   try {
-    return Response.json(await prisma.server.findMany());
+    return Response.json({
+      data: await prisma.server.findMany(),
+    });
   } catch (err: any) {
     return handlePrismaError(err);
   }

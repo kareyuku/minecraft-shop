@@ -28,7 +28,7 @@ export default function PaymentEdit({
   };
 
   const request = async () => {
-    const response = await fetch(`/api/payments/${paymentOption.id}`, {
+    const response = await fetch(`/api/payments/${paymentOption.provider}`, {
       method: "PATCH",
       body: JSON.stringify({
         fee: parseFloat(feeRef.current?.value as string),

@@ -1,26 +1,27 @@
 import { prisma } from "@/lib/prisma";
+import { PaymentProvider } from "@prisma/client";
 
 interface ISlug {
   params: {
-    paymentId: string;
+    provider: string;
   };
 }
 
 export async function PATCH(req: Request, { params }: ISlug) {
   const { fee, currency, secret } = await req.json();
-  const paymentId = parseInt(params.paymentId);
+  const provider = params.provider as PaymentProvider;
   const method_exist = await prisma.paymentMethod.findFirst({
-    where: { id: Number.parseInt(params.paymentId) },
+    where: { provider },
   });
   if (!method_exist)
     return Response.json(
-      { message: "Can't find PaymentMethod with ID: " + paymentId },
+      { message: "Can't find PaymentMethod with Provider: " + provider },
       { status: 400 }
     );
   try {
     return Response.json(
       await prisma.paymentMethod.update({
-        where: { id: paymentId },
+        where: { provider },
         data: {
           fee,
           secret,
@@ -37,7 +38,7 @@ export async function DELETE(req: Request, { params }: ISlug) {
   try {
     return Response.json(
       await prisma.paymentMethod.delete({
-        where: { id: Number.parseInt(params.paymentId) },
+        where: { provider: params.provider as PaymentProvider },
       }),
       { status: 200 }
     );

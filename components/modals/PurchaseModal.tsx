@@ -46,7 +46,7 @@ export default function PurchaseModal({
     const body = {
       id: product.id,
       quanity: Quanity,
-      provider: paymentMethod?.id,
+      provider: paymentMethod?.provider,
     };
     const response = await fetch("/api/payment", {
       method: "POST",
@@ -139,7 +139,7 @@ export default function PurchaseModal({
         <select
           onChange={(e) =>
             setPaymentMethod(
-              payments.find((x) => x.id === Number.parseInt(e.target.value))
+              payments.find((x) => x.provider === e.target.value)
             )
           }
           defaultValue={"pick"}
@@ -148,7 +148,7 @@ export default function PurchaseModal({
         >
           <option defaultValue="pick">Pick one</option>
           {payments.map((paymentMethod) => (
-            <option key={paymentMethod.id} value={paymentMethod.id}>
+            <option key={paymentMethod.provider} value={paymentMethod.provider}>
               {paymentMethod.provider} - {paymentMethod.fee}%
             </option>
           ))}

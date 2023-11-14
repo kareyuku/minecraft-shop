@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   try {
     const product = await prisma.product.findUniqueOrThrow({ where: { id } });
     const paymentMethod = await prisma.paymentMethod.findUnique({
-      where: { id: provider },
+      where: { provider },
     });
     if (!paymentMethod)
       return Response.json(
