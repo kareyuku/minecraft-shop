@@ -34,7 +34,7 @@ export default function CreateServerModal({
       body: JSON.stringify(data),
     });
 
-    if (response.status === 200) addServer(await response.json());
+    if (response.status === 201) addServer(await response.json());
 
     return response;
   };

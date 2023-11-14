@@ -1,9 +1,6 @@
 "use client";
-import { useRef, useState } from "react";
 import { PaymentMethod } from "@prisma/client";
 
-import Modal from "../../ui/Modal";
-import Input from "../../ui/Input";
 import DeleteModal from "@/components/modals/DeleteModal";
 import PaymentEdit from "./modals/PaymentEdit";
 

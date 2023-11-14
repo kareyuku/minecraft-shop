@@ -30,7 +30,7 @@ export default function Modal(modalProps: IModalProps) {
     setLoading(true);
     const response = await request();
     setLoading(false);
-    if (response.status == 200) {
+    if (response.status == 200 || response.status == 201) {
       modalRef.current?.close();
       formRef.current?.reset();
     }

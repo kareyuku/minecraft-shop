@@ -3,9 +3,10 @@
 import ServerCard from "./ServerCard";
 import CreateServerModal from "@/components/modals/CreateServerModal";
 import useServers from "./hooks/useServers";
+import { Server } from "@prisma/client";
 
-export default function ServersGrid() {
-  const { servers, addServer, editServer, removeServer } = useServers();
+export default function ServersGrid({ data }: { data: Server[] }) {
+  const { servers, addServer, editServer, removeServer } = useServers(data);
 
   return (
     <>

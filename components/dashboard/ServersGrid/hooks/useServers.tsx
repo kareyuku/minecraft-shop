@@ -3,13 +3,8 @@
 import { Server } from "@prisma/client";
 import { useEffect, useState } from "react";
 
-export default function useServers() {
-  const [servers, setServers] = useState<Server[]>([]);
-
-  const fetchServers = async () => {
-    const response = await fetch("/api/servers");
-    setServers(await response.json());
-  };
+export default function useServers(data: Server[]) {
+  const [servers, setServers] = useState<Server[]>(data);
 
   const addServer = (server: Server) => setServers([...servers, server]);
 
@@ -22,10 +17,6 @@ export default function useServers() {
     oldServers[index] = server;
     setServers([...oldServers]);
   };
-
-  useEffect(() => {
-    fetchServers();
-  }, []);
 
   return { servers, addServer, removeServer, editServer };
 }

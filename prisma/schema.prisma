@@ -61,6 +61,6 @@ model Voucher {
 model CustomPage {
   id          String @id @default(uuid())
   title       String
-  description String
-  content     String
+  description String?
+  content     String?
 }

@@ -13,12 +13,10 @@ export default async function CategoryPage({ params }: params) {
   return (
     <Layout>
       <h1 className="text-2xl">Category: Survival</h1>
-      <section className="flex flex-col gap-10">
-        <Suspense>
-          <ProductGrid slug={params.slug} />
-          <RecentPurchases />
-        </Suspense>
-      </section>
+      <Suspense>
+        <ProductGrid slug={params.slug} />
+        <RecentPurchases />
+      </Suspense>
     </Layout>
   );
 }
