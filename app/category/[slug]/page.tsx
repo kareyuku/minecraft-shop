@@ -1,8 +1,7 @@
-import Navbar from "@/components/ui/Navbar";
 import RecentPurchases from "@/components/Shop/Modules/RecentPurchases";
-import ProductCard from "@/components/Shop/ProductCard";
-import { prisma } from "@/lib/prisma";
-import { cache } from "react";
+import Layout from "@/components/Shop/Layout";
+import ProductGrid from "@/components/Shop/ProductGrid";
+import { Suspense } from "react";
 
 type params = {
   params: {
@@ -10,32 +9,16 @@ type params = {
   };
 };
 
-export const getProducts = cache(async (serverId: string) => {
-  const products = await prisma.product.findMany({ where: { serverId } });
-  const payments = await prisma.paymentMethod.findMany({
-    distinct: ["fee", "provider"],
-  });
-  return { products, payments };
-});
-
 export default async function CategoryPage({ params }: params) {
-  const { products, payments } = await getProducts(params.slug);
   return (
-    <main className="container mx-auto flex flex-col gap-6 mt-10 px-3 max-sm:px-5">
-      <Navbar />
+    <Layout>
       <h1 className="text-2xl">Category: Survival</h1>
       <section className="flex flex-col gap-10">
-        <section className="grid max-sm:grid-cols-1 max-md:grid-cols-2 max-lg:grid-cols-3 grid-cols-3 gap-4">
-          {products.map((product) => (
-            <ProductCard
-              product={product}
-              paymentsMethods={payments}
-              key={product.id}
-            />
-          ))}
-        </section>
-        <RecentPurchases />
+        <Suspense>
+          <ProductGrid slug={params.slug} />
+          <RecentPurchases />
+        </Suspense>
       </section>
-    </main>
+    </Layout>
   );
 }

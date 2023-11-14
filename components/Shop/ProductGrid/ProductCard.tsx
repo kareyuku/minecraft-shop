@@ -1,5 +1,5 @@
 import { PaymentMethod, Prisma, Product } from "@prisma/client";
-import PurchaseModal from "../modals/PurchaseModal";
+import PurchaseModal from "../../modals/PurchaseModal";
 
 export default function ProductCard({
   product,
