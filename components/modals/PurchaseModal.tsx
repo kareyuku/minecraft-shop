@@ -95,7 +95,9 @@ export default function PurchaseModal({
           }
           src={product.imageUri || ""}
         />
-        <h1>{product.description}</h1>
+        <span className="max-h-[100px] overflow-y-auto">
+          {product.description}
+        </span>
       </div>
       <div className="form-control w-full text-center">
         <span className="text-third font-bold text-2xl">{Price} zł</span>

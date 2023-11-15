@@ -8,11 +8,22 @@ export async function GET(
   const { id } = params;
 
   try {
-    return Response.json(
-      await prisma.server.findFirstOrThrow({
-        where: { id },
-      })
-    );
+    const server = await prisma.server.findFirst({
+      where: { id },
+      include: { products: true },
+    });
+    if (!server)
+      return Response.json(
+        { message: "Can't find a server with ID: ", id },
+        { status: 404 }
+      );
+
+    return Response.json({
+      message: "Success",
+      data: {
+        server,
+      },
+    });
   } catch (err: any) {
     return handlePrismaError(err);
   }

@@ -13,6 +13,7 @@ export default function CreateProductModal({
 }) {
   const nameRef = useRef<HTMLInputElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const requiredOnlineRef = useRef<HTMLInputElement>(null);
   const minimumBuyRef = useRef<HTMLInputElement>(null);
@@ -27,10 +28,6 @@ export default function CreateProductModal({
       return false;
     }
     setNameErr("");
-    console.log(
-      parseInt(minimumBuyRef.current?.value as string),
-      parseInt(maximumBuyRef.current?.value as string)
-    );
     if (!priceRef.current?.value) return false;
     if (!requiredOnlineRef.current?.value) return false;
     if (
@@ -48,6 +45,7 @@ export default function CreateProductModal({
     const body = {
       id: serverId,
       name: nameRef.current?.value,
+      description: descriptionRef.current?.value,
       price: Number.parseFloat(priceRef.current?.value || "1"),
       imageUri: imageRef.current?.value,
       requireOnline: requiredOnlineRef.current?.value ? true : false,
@@ -76,7 +74,7 @@ export default function CreateProductModal({
       style={"bright"}
     >
       <Input name="Name" err={nameErr} ref={nameRef} required />
-      <Input name="Description" err={""} />
+      <Input name="Description" err={""} ref={descriptionRef} />
       <Input
         name="Price"
         err={priceErr}
