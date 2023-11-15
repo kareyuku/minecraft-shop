@@ -22,6 +22,13 @@ enum PaymentProvider {
   PAYBYLINK_SMS
 }
 
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  CANCELED
+  VOUCHER
+}
+
 // Models
 
 model PaymentMethod {
@@ -42,6 +49,7 @@ model Product {
   server        Server    @relation(fields: [serverId], references: [id])
   serverId      String
   vouchers      Voucher[]
+  transactions  Transaction[]
 }
 
 model Server {
@@ -63,4 +71,13 @@ model CustomPage {
   title       String
   description String?
   content     String?
+}
+
+model Transaction {
+  id          String            @id @default(uuid())
+  product     Product           @relation(fields: [ productId ], references: [id], onDelete: Cascade)
+  productId   Int
+  status      TransactionStatus @default(PENDING)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
 }
