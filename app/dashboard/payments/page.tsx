@@ -12,7 +12,7 @@ export default async function AdminProducts() {
     <Sidebar>
       <div className="admin__content px-6 py-3">
         <Suspense>
-          <PaymentsGrid />
+          <PaymentsGrid data={servers} />
         </Suspense>
       </div>
     </Sidebar>

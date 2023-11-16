@@ -8,6 +8,9 @@ export async function GET(
   const { id } = params;
 
   try {
+    const payments = await prisma.paymentMethod.findMany({
+      select: { fee: true, provider: true },
+    });
     const server = await prisma.server.findFirst({
       where: { id },
       include: { products: true },
@@ -22,6 +25,7 @@ export async function GET(
       message: "Success",
       data: {
         server,
+        payments,
       },
     });
   } catch (err: any) {

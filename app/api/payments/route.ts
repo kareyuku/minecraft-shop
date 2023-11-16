@@ -12,7 +12,8 @@ export async function POST(req: Request) {
           fee,
           secret,
         },
-      }));
+      })
+    );
   } catch (err: any) {
     return handlePrismaError(err);
   }

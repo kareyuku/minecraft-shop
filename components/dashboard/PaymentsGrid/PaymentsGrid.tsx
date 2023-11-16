@@ -4,7 +4,7 @@ import PaymentOption from "./PaymentOption";
 import CreatePaymentMethod from "@/components/modals/CreatePaymentMethod";
 import { usePayments } from "./hooks/usePayments";
 
-export default function PaymentsGrid() {
+export default function PaymentsGrid({ data }: { data: any }) {
   const { payments, addPayment, removePayment, editPayment } = usePayments();
   return (
     <>

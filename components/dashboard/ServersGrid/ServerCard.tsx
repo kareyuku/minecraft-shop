@@ -14,10 +14,8 @@ export default function ServerCard(serverCardProps: IServerCard) {
   const { server, removeServer, editServer } = serverCardProps;
 
   return (
-    <div className="flex gap-3 rounded-lg bg-secondary p-4 relative max-w-[600px]">
-      <label className="text-center absolute right-1/2 translate-x-1/2 truncate w-[50%]">
-        <span className="text-lg ">{server.name}</span>
-      </label>
+    <div className="flex gap-3 rounded-lg bg-secondary p-4 max-w-[600px]">
+      {/* Server Image */}
       <div className={"flex max-sm:items-end"}>
         <div className="bg-background h-[100px] w-[100px] rounded-md p-5 aspect-square">
           {server.imageUri && (
@@ -25,10 +23,12 @@ export default function ServerCard(serverCardProps: IServerCard) {
           )}
         </div>
       </div>
+      {/* Server Info */}
       <div className="flex flex-1 flex-col">
+        <h1 className="text-xl mt-2">{server.name}</h1>
         <div className="flex-1 items-end flex gap-2">
           <div className="flex gap-3 flex-1 items-center w-14">
-            <label className="items-end flex-1  bg-primary p-3 rounded-md truncate">
+            <label className="items-end flex-1 bg-primary p-3 rounded-md truncate">
               <span className="font-mono">{server.ip}</span>
             </label>
           </div>
