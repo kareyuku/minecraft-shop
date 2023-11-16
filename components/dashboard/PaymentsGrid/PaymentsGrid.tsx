@@ -5,7 +5,8 @@ import CreatePaymentMethod from "@/components/modals/CreatePaymentMethod";
 import { usePayments } from "./hooks/usePayments";
 
 export default function PaymentsGrid({ data }: { data: any }) {
-  const { payments, addPayment, removePayment, editPayment } = usePayments();
+  const { payments, addPayment, removePayment, editPayment } =
+    usePayments(data);
   return (
     <>
       <CreatePaymentMethod callback={addPayment} />
