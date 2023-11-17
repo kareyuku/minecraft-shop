@@ -2,17 +2,14 @@ import { prisma } from "@/lib/prisma";
 import handlePrismaError from "@/lib/prismaErrorHandler";
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
-  const id = parseInt(params.id);
-
-  if (!id)
-    return Response.json({ message: "id must be a valid Integer." }, { status: 400 });
-
   try {
-    return Response.json(
-      await prisma.product.findFirstOrThrow({
-        where: { id },
-      })
-    );
+    return Response.json({
+      message: "Success",
+      data: await prisma.product.findFirstOrThrow({
+        where: { id: params.id },
+      }),
+      paymentMethods: await prisma.paymentMethod.findMany()
+    });
   } catch (err: any) {
     return handlePrismaError(err);
   }
@@ -29,15 +26,11 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     maximumBuy,
   } = await req.json();
 
-  const id = parseInt(params.id);
-
-  if (!id)
-    return Response.json({ message: "id must be a valid Integer." }, { status: 400 });
-
   try {
-    return Response.json(
-      await prisma.product.update({
-        where: { id },
+    return Response.json({
+      message: "Success",
+      data: await prisma.product.update({
+        where: { id: params.id },
         data: {
           price,
           name,
@@ -48,24 +41,20 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
           maximumBuy,
         },
       })
-    );
+    });
   } catch (err: any) {
     return handlePrismaError(err);
   }
 }
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  const id = parseInt(params.id);
-
-  if (!id)
-    return Response.json({ message: "id must be a valid Integer." }, { status: 400 });
-
   try {
-    return Response.json(
-      await prisma.product.delete({
-        where: { id },
+    return Response.json({
+      message: "Success",
+      data: await prisma.product.delete({
+        where: { id: params.id },
       })
-    );
+    });
   } catch (err: any) {
     return handlePrismaError(err);
   }

@@ -6,15 +6,15 @@ export async function POST(req: Request) {
 
   try {
     return Response.json({
+      message: "Success",
       data: await prisma.server.create({
           data: {
             name,
             ip,
             imageUri,
           },
-        }),
-      message: "Success" },
-      { status: 201 });
+        })
+    }, { status: 201 });
   } catch (err: any) {
     return handlePrismaError(err);
   }

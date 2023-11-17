@@ -4,7 +4,7 @@ import handlePrismaError from "@/lib/prismaErrorHandler";
 export async function POST(req: Request) {
   // TO DO ADD VOUCHERS
   const {
-    id,
+    serverId,
     price,
     name,
     description,
@@ -15,13 +15,14 @@ export async function POST(req: Request) {
   } = await req.json();
 
   try {
-    await prisma.server.findUniqueOrThrow({
-      where: { id },
-    });
+    await prisma.server.findFirstOrThrow({ where: { id: serverId } });
+
+    if (!serverId)
+      return Response.json({ message: "Argument `serverId` is missing."}, { status: 400 })
 
     const product = await prisma.product.create({
       data: {
-        serverId: id,
+        serverId,
         price,
         name,
         description,
@@ -31,28 +32,22 @@ export async function POST(req: Request) {
         maximumBuy,
       },
     });
+    await prisma.server.update({ where: { id: serverId }, data: { products: { connect: { id: product.id } } } });
 
-    await prisma.server.update({
-      where: { id },
-      data: { products: { connect: { id: product.id } } },
+    return Response.json({
+      message: "Success",
+      data: product
     });
-
-    return Response.json(product);
   } catch (err: any) {
     return handlePrismaError(err);
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     return Response.json({
-      products: await prisma.product.findMany({}),
-      paymentsMethods: await prisma.paymentMethod.findMany({
-        select: {
-          fee: true,
-          provider: true,
-        },
-      }),
+      message: "Success",
+      data: await prisma.product.findMany()
     });
   } catch (err: any) {
     return handlePrismaError(err);

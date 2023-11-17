@@ -5,10 +5,8 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   try {
     return Response.json({
       message: "Success",
-      data: await prisma.server.findFirstOrThrow({
-        where: { id: params.id },
-        include: { products: true },
-      }),
+      data: await prisma.server.findFirstOrThrow({ where: { id: params.id }, include: { products: true }, }),
+      paymentMethods: await prisma.paymentMethod.findMany()
     });
   } catch (err: any) {
     return handlePrismaError(err);
@@ -16,12 +14,10 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 }
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
-
   try {
-    return Response.json( {
+    return Response.json({
       message: "Success",
-      data: await prisma.server.delete({ where: { id }, include: { products: true } })
+      data: await prisma.server.delete({ where: { id: params.id }, include: { products: true } })
     });
   } catch (err: any) {
     return handlePrismaError(err);
@@ -30,7 +26,6 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 
 export async function PATCH(req: Request, { params }: { params: { id: string } }) {
   const { name, ip, imageUri } = await req.json();
-
   try {
     return Response.json({
       message: "Success",

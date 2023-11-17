@@ -38,7 +38,7 @@ model PaymentMethod {
 }
 
 model Product {
-  id            Int       @id @default(autoincrement())
+  id            String    @id @default(uuid())
   price         Float     @default(1)
   name          String
   description   String?
@@ -63,7 +63,7 @@ model Server {
 model Voucher {
   id        String  @id @default(uuid())
   product   Product @relation(fields: [productId], references: [id])
-  productId Int
+  productId String
 }
 
 model CustomPage {
@@ -76,7 +76,7 @@ model CustomPage {
 model Transaction {
   id          String            @id @default(uuid())
   product     Product           @relation(fields: [ productId ], references: [id], onDelete: Cascade)
-  productId   Int
+  productId   String
   status      TransactionStatus @default(PENDING)
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
