@@ -2,7 +2,6 @@ import { prisma } from "@/lib/prisma";
 import handlePrismaError from "@/lib/prismaErrorHandler";
 
 export async function POST(req: Request) {
-  // TO DO ADD VOUCHERS
   const {
     id,
     price,
@@ -24,7 +23,7 @@ export async function POST(req: Request) {
         serverId: id,
         price,
         name,
-        description,
+        description: btoa(description),
         imageUri,
         requireOnline,
         minimumBuy,
@@ -46,7 +45,7 @@ export async function POST(req: Request) {
 export async function GET() {
   try {
     return Response.json({
-      products: await prisma.product.findMany({}),
+      products: await prisma.product.findMany({ orderBy: { serverId: "asc" } }),
       paymentsMethods: await prisma.paymentMethod.findMany({
         select: {
           fee: true,
