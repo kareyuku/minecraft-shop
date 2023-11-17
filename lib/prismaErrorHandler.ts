@@ -7,6 +7,9 @@ export default function handlePrismaError(err: any) {
     return Response.json({ message: "Argument" + err.message.split("Argument")[1] }, { status: 400 });
 
   switch (err.code) {
+    case "P2002":
+      return Response.json({ message: `There is already a record containing the value of field: ${err.meta?.target}`, fields: err.meta?.target }, { status: 409 });
+
     case "P2025": // Prisma results aren't consistent sadly
       return Response.json({ message: `${err.meta?.cause || err.message}` }, { status: 404 });
 
