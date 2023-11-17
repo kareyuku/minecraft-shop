@@ -53,7 +53,7 @@ export async function GET(req: Request) {
           provider: true,
         },
       }),
-    });
+    }, { status: 201 });
   } catch (err: any) {
     return handlePrismaError(err);
   }

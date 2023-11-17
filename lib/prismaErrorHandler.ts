@@ -1,10 +1,10 @@
 import { PrismaClientValidationError } from "@prisma/client/runtime/library";
 
 export default function handlePrismaError(err: any) {
-  console.log(err);
+  console.log({...err });
 
   if (err instanceof PrismaClientValidationError)
-    return Response.json({ message: "Argument" + err.message.split("Argument")[1] }, { status: 400 });
+    return Response.json({ message: err.message.split('\n').at(-1) }, { status: 400 });
 
   switch (err.code) {
     case "P2002":
