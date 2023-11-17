@@ -46,13 +46,7 @@ export async function GET(req: Request) {
   try {
     return Response.json({
       message: "Success",
-      data: await prisma.product.findMany({ orderBy: { serverId: "asc" } }),
-      paymentsMethods: await prisma.paymentMethod.findMany({
-        select: {
-          fee: true,
-          provider: true,
-        },
-      }),
+      data: await prisma.product.findMany({ orderBy: { serverId: "asc" } })
     }, { status: 201 });
   } catch (err: any) {
     return handlePrismaError(err);
