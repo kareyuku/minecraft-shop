@@ -13,11 +13,11 @@ export async function POST(req: Request) {
     maximumBuy,
   } = await req.json();
 
+  if (!serverId)
+    return Response.json({ message: "Argument `serverId` is missing."}, { status: 400 })
+
   try {
     await prisma.server.findFirstOrThrow({ where: { id: serverId } });
-
-    if (!serverId)
-      return Response.json({ message: "Argument `serverId` is missing."}, { status: 400 })
 
     const product = await prisma.product.create({
       data: {
@@ -46,8 +46,7 @@ export async function GET(req: Request) {
   try {
     return Response.json({
       message: "Success",
-      data: await prisma.product.findMany()
-      products: await prisma.product.findMany({ orderBy: { serverId: "asc" } }),
+      data: await prisma.product.findMany({ orderBy: { serverId: "asc" } }),
       paymentsMethods: await prisma.paymentMethod.findMany({
         select: {
           fee: true,

@@ -6,7 +6,12 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     return Response.json({
       message: "Success",
       data: await prisma.server.findFirstOrThrow({ where: { id: params.id }, include: { products: true }, }),
-      paymentMethods: await prisma.paymentMethod.findMany()
+      paymentMethods: await prisma.paymentMethod.findMany({
+        select: {
+          fee: true,
+          provider: true
+        }
+      })
     });
   } catch (err: any) {
     return handlePrismaError(err);

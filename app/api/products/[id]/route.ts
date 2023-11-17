@@ -8,7 +8,12 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
       data: await prisma.product.findFirstOrThrow({
         where: { id: params.id },
       }),
-      paymentMethods: await prisma.paymentMethod.findMany()
+      paymentMethods: await prisma.paymentMethod.findMany({
+        select: {
+          fee: true,
+          provider: true
+        }
+      })
     });
   } catch (err: any) {
     return handlePrismaError(err);
@@ -34,7 +39,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
         data: {
           price,
           name,
-          description,
+          description: btoa(description),
           imageUri,
           requireOnline,
           minimumBuy,
