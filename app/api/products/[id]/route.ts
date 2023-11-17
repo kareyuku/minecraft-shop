@@ -5,15 +5,14 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   try {
     return Response.json({
       message: "Success",
-      data: await prisma.product.findFirstOrThrow({
-        where: { id: params.id },
-      }),
-      paymentMethods: await prisma.paymentMethod.findMany({
-        select: {
-          fee: true,
-          provider: true
-        }
-      })
+      data: {
+        ...await prisma.product.findFirstOrThrow({ where: { id: params.id } }),
+        paymentMethods: await prisma.paymentMethod.findMany({
+          select: {
+            fee: true,
+            provider: true
+          }
+      })}
     });
   } catch (err: any) {
     return handlePrismaError(err);
