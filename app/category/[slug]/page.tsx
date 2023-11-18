@@ -4,7 +4,7 @@ import { HiMiniArrowUpOnSquareStack } from "react-icons/hi2";
 import RecentPurchases from "@/components/Shop/Modules/RecentPurchases";
 import Layout from "@/components/Shop/Layout";
 import ProductGrid from "@/components/Shop/ProductGrid";
-import { Product, Server } from "@prisma/client";
+import { PaymentMethod, Product, Server } from "@prisma/client";
 
 type params = {
   params: {
@@ -15,7 +15,7 @@ type params = {
 export async function getServer(slug: string) {
   const response = await fetch(`http://localhost:3000/api/servers/${slug}`);
   const data = await response.json();
-  return data?.data as Server & { products: Product[] };
+  return data?.data as Server & { products: Product[], paymentMethods: PaymentMethod[] };
 }
 
 export default async function CategoryPage({ params }: params) {
@@ -27,7 +27,7 @@ export default async function CategoryPage({ params }: params) {
         <h1 className="text-third">{server?.name}</h1>
       </div>
       <Suspense>
-        <ProductGrid products={server.products} payments={[]} />
+        <ProductGrid products={server.products} payments={server.paymentMethods} />
         <RecentPurchases />
       </Suspense>
     </Layout>
